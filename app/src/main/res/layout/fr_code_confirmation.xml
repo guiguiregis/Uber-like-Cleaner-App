@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".CodeConfirmationBinding">
+
+        <import type="android.text.InputType" />
+
+        <import type="android.view.inputmethod.EditorInfo" />
+
+        <import type="android.view.Gravity" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.auth.confirmation.CodeConfirmationViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@android:color/white"
+        android:clipToPadding="false"
+        android:padding="@dimen/margin_28dp"
+        tools:context="com.wolfpackdigital.kliner.partner.core.auth.confirmation.CodeConfirmationFragment">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.back()}"
+            android:padding="@dimen/margin_8dp"
+            android:src="@drawable/ic_arrow_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_login"
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/rubik_light"
+            android:text="@{viewModel.isEditMode ? @string/edit : @string/login}"
+            android:textSize="@dimen/textsize_20sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_back"
+            tools:text="@string/login" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TextView.Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_40dp"
+            android:text="@string/confirm_your_number"
+            android:textSize="@dimen/textsize_24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_login" />
+
+        <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+            android:id="@+id/pin_view_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24dp"
+            app:imeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+            app:inputType="@{InputType.TYPE_CLASS_NUMBER}"
+            app:klText="@={viewModel.letter1}"
+            app:layout_constraintEnd_toStartOf="@id/pin_view_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:maxChars="@{1}"
+            app:textGravity="@{Gravity.CENTER}"
+            app:textSize="@{@dimen/textsize_32sp}" />
+
+        <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+            android:id="@+id/pin_view_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24dp"
+            app:imeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+            app:inputType="@{InputType.TYPE_CLASS_NUMBER}"
+            app:klText="@={viewModel.letter2}"
+            app:layout_constraintEnd_toStartOf="@id/pin_view_3"
+            app:layout_constraintStart_toEndOf="@id/pin_view_1"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:maxChars="@{1}"
+            app:textGravity="@{Gravity.CENTER}"
+            app:textSize="@{@dimen/textsize_32sp}" />
+
+        <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+            android:id="@+id/pin_view_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24dp"
+            app:imeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+            app:inputType="@{InputType.TYPE_CLASS_NUMBER}"
+            app:klText="@={viewModel.letter3}"
+            app:layout_constraintEnd_toStartOf="@id/pin_view_4"
+            app:layout_constraintStart_toEndOf="@id/pin_view_2"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:maxChars="@{1}"
+            app:textGravity="@{Gravity.CENTER}"
+            app:textSize="@{@dimen/textsize_32sp}" />
+
+        <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+            android:id="@+id/pin_view_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24dp"
+            android:textAlignment="center"
+            app:imeOptions="@{EditorInfo.IME_ACTION_DONE}"
+            app:inputType="@{InputType.TYPE_CLASS_NUMBER}"
+            app:klText="@={viewModel.letter4}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/pin_view_3"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:maxChars="@{1}"
+            app:textGravity="@{Gravity.CENTER}"
+            app:textSize="@{@dimen/textsize_32sp}" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/TextView.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24dp"
+            android:lineSpacingMultiplier="1.2"
+            android:text="@{@string/enter_4_digit_number(viewModel.phoneNumber)}"
+            android:textColor="@color/textSecondaryColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pin_view_1"
+            tools:text="@string/enter_4_digit_number" />
+
+        <TextView
+            android:id="@+id/tv_renew_code"
+            style="@style/TextView.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24dp"
+            android:lineSpacingMultiplier="1.2"
+            android:onClick="@{() -> viewModel.resendCode()}"
+            android:text="@string/renew_code"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_description"
+            tools:text="@string/renew_code" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

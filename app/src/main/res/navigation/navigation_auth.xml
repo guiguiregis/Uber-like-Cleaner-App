@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/splashScreenFragment">
+
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.auth.splash.SplashScreenFragment"
+        android:label="SplashScreenFragment"
+        tools:layout="@layout/fr_splash_screen">
+        <action
+            android:id="@+id/action_splashScreenFragment_to_onboardingFragment"
+            app:destination="@id/onboardingFragment"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_userVerificationFragment"
+            app:destination="@id/userVerificationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.auth.onboarding.OnboardingFragment"
+        android:label="OnboardingFragment"
+        tools:layout="@layout/fr_onboarding">
+        <action
+            android:id="@+id/action_onboardingFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.auth.welcome.WelcomeFragment"
+        android:label="WelcomeFragment"
+        tools:layout="@layout/fr_welcome">
+        <action
+            android:id="@+id/action_welcomeFragment_to_phoneConfirmationFragment"
+            app:destination="@id/phoneConfirmationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/phoneConfirmationFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.auth.phone.PhoneConfirmationFragment"
+        android:label="PhoneConfirmationFragment"
+        tools:layout="@layout/fr_phone_confirmation">
+        <action
+            android:id="@+id/action_phoneConfirmationFragment_to_codeConfirmationFragment"
+            app:destination="@id/codeConfirmationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/codeConfirmationFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.auth.confirmation.CodeConfirmationFragment"
+        android:label="CodeConfirmationFragment"
+        tools:layout="@layout/fr_code_confirmation">
+        <argument
+            android:name="phoneNumber"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="isEditMode"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_codeConfirmationFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment"
+            app:popUpTo="@id/welcomeFragment" />
+        <action
+            android:id="@+id/action_codeConfirmationFragment_to_userVerificationFragment"
+            app:destination="@id/userVerificationFragment" />
+        <action
+            android:id="@+id/action_codeConfirmationFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+        <action
+            android:id="@+id/action_codeConfirmationFragment_to_onboardingEmployeeFragment"
+            app:destination="@id/onboardingEmployeeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.auth.registration.RegistrationFragment"
+        android:label="RegistrationFragment"
+        tools:layout="@layout/fr_registration">
+        <action
+            android:id="@+id/action_registrationFragment_to_userVerificationFragment"
+            app:destination="@id/userVerificationFragment"
+            app:popUpTo="@id/welcomeFragment" />
+        <argument
+            android:name="userFlowData"
+            app:argType="com.wolfpackdigital.kliner.partner.shared.useCases.UserRegisterFlowData" />
+    </fragment>
+    <fragment
+        android:id="@+id/userVerificationFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.auth.registration.verification.UserVerificationFragment"
+        android:label="UserVerificationFragment"
+        tools:layout="@layout/fr_user_verification">
+        <action
+            android:id="@+id/action_userVerificationFragment_to_enableNotificationsFragment"
+            app:destination="@id/enableNotificationsFragment" />
+        <action
+            android:id="@+id/action_userVerificationFragment_to_enableGeolocationFragmentOnboarding"
+            app:destination="@id/enableGeolocationFragmentOnboarding" />
+        <action
+            android:id="@+id/action_userVerificationFragment_to_inviteEmployeeFragment"
+            app:destination="@id/inviteEmployeeFragment">
+            <argument
+                android:name="isOnboarding"
+                android:defaultValue="true"
+                app:argType="boolean" />
+        </action>
+        <action
+            android:id="@+id/action_userVerificationFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/authActivity"
+        android:name="com.wolfpackdigital.kliner.partner.core.auth.AuthActivity"
+        android:label="AuthActivity"
+        tools:layout="@layout/activity_auth" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.MainActivity"
+        android:label="MainActivity"
+        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/onboardingEmployeeFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.auth.onboarding.employee.OnboardingEmployeeFragment"
+        android:label="OnboardingEmployeeFragment"
+        tools:layout="@layout/fr_onboarding_employee">
+        <action
+            android:id="@+id/action_onboardingEmployeeFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+        <argument
+            android:name="cleanerID"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/enableNotificationsFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.confirmations.notifications.EnableNotificationsFragment"
+        android:label="EnableNotificationsFragment"
+        tools:layout="@layout/fr_enable_notifications">
+        <action
+            android:id="@+id/action_enableNotificationsFragment_to_enableGeolocationFragmentOnboarding"
+            app:destination="@id/enableGeolocationFragmentOnboarding"
+            app:popUpTo="@id/userVerificationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/enableGeolocationFragmentOnboarding"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.confirmations.geolocation.EnableGeolocationFragment"
+        android:label="EnableGeolocationFragment"
+        tools:layout="@layout/fr_enable_geolocation">
+        <action
+            android:id="@+id/action_enableGeolocationFragmentOnboarding_to_mainActivity"
+            app:destination="@id/mainActivity" />
+        <action
+            android:id="@+id/action_enableGeolocationFragmentOnboarding_to_inviteEmployeeFragment"
+            app:destination="@id/inviteEmployeeFragment"
+            app:popUpTo="@id/userVerificationFragment">
+            <argument
+                android:name="isOnboarding"
+                android:defaultValue="true"
+                app:argType="boolean" />
+        </action>
+
+    </fragment>
+    <fragment
+        android:id="@+id/addEmployeeFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.employee.add.AddEmployeeFragment"
+        android:label="AddEmployeeFragment"
+        tools:layout="@layout/fr_add_employee">
+        <argument
+            android:name="isOnboarding"
+            android:defaultValue="true"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_addEmployeeFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/inviteEmployeeFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.employee.invite.InviteEmployeeFragment"
+        android:label="InviteEmployeeFragment"
+        tools:layout="@layout/fr_invite_employee">
+        <argument
+            android:name="isOnboarding"
+            android:defaultValue="true"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_inviteEmployeeFragment_to_addEmployeeFragment"
+            app:destination="@id/addEmployeeFragment">
+            <argument
+                android:name="isOnboarding"
+                android:defaultValue="true"
+                app:argType="boolean" />
+        </action>
+    </fragment>
+
+</navigation>

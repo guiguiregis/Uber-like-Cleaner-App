@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".AddEmployeeBinding">
+
+        <import type="android.view.inputmethod.EditorInfo" />
+
+        <import type="android.text.InputType" />
+
+        <variable
+            name="dialogViewModel"
+            type="com.wolfpackdigital.kliner.partner.core.auth.dialogs.country.SelectCountryViewModel" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.main.employee.add.AddEmployeeViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:padding="@dimen/margin_28dp"
+            tools:context="com.wolfpackdigital.kliner.partner.core.main.employee.add.AddEmployeeFragment">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.back()}"
+                android:padding="@dimen/margin_8dp"
+                android:src="@drawable/ic_arrow_left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_add_employee"
+                style="@style/TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rubik_light"
+                android:text="@string/add_employee"
+                android:textSize="@dimen/textsize_20sp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/iv_back" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/TextView.Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_40dp"
+                android:text="@string/employee_info_title"
+                android:textSize="@dimen/textsize_24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_employee" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                style="@style/TextView.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/employee_info_description"
+                android:textColor="@color/textSecondaryColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_prefix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                app:klClick="@{() -> viewModel.openPrefixPicker()}"
+                app:klEditTextHint="@{@string/prefix_hint}"
+                app:klFocusable="@{false}"
+                app:klString="@{dialogViewModel.selectedCountryCode}"
+                app:klWidthMatchParent="@{true}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                app:inputType="@{InputType.TYPE_CLASS_PHONE}"
+                app:klEditTextHintLD="@{viewModel.phoneNumberHint}"
+                app:klError="@{viewModel.errorPhoneNumber}"
+                app:klText="@={viewModel.phoneNumber}"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/et_prefix"
+                app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+                app:inputType="@{InputType.TYPE_TEXT_FLAG_CAP_WORDS}"
+                app:klEditTextHint="@{@string/first_name}"
+                app:klError="@{viewModel.errorFirstName}"
+                app:klTextCapitalize="@={viewModel.firstName}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_phone" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+                app:inputType="@{InputType.TYPE_TEXT_FLAG_CAP_WORDS}"
+                app:klEditTextHint="@{@string/last_name}"
+                app:klError="@{viewModel.errorLastName}"
+                app:klTextCapitalize="@={viewModel.lastName}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_first_name" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseDropdown
+                android:id="@+id/et_dropdown_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:klDropdownListRaw="@{viewModel.genderList}"
+                app:klDropdownSelection="@={viewModel.gender}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_last_name" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+                app:inputType="@{InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS}"
+                app:klEditTextHint="@{@string/email}"
+                app:klError="@{viewModel.errorEmail}"
+                app:klText="@={viewModel.email}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_dropdown_gender" />
+
+            <AutoCompleteTextView
+                android:id="@+id/et_employee_address"
+                style="@style/EditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_8dp"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:layout_marginEnd="@dimen/margin_8dp"
+                android:background="@drawable/bg_rounded_white_view"
+                android:completionThreshold="1"
+                android:drawablePadding="@dimen/margin_8dp"
+                android:elevation="@dimen/edit_text_elevation"
+                android:hint="@string/employee_address"
+                android:imeOptions="actionDone"
+                android:inputType="textCapWords"
+                android:popupBackground="@drawable/bg_spinner"
+                android:text="@={viewModel.rawAddress}"
+                app:drawableEndCompat="@drawable/ic_search"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_email" />
+
+            <TextView
+                android:id="@+id/tv_types_of_work"
+                style="@style/TextView.Small"
+                textColor="@color/textColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:fontFamily="@font/rubik_light"
+                android:text="@string/competences"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_employee_address"
+                app:visibility="@{viewModel.typesOfWork != null}" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_types_of_work"
+                style="@style/EditTextBg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_types_of_work"
+                app:visibility="@{viewModel.typesOfWork != null}">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_types_of_work"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_types_of_service"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/base_checkbox" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_activity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_types_of_work">
+
+                <TextView
+                    android:id="@+id/tv_activity_title"
+                    style="@style/TextView.Title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_area"
+                    android:textSize="@dimen/textsize_16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_activity_description"
+                    style="@style/TextView.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@string/activity_area_description_sme"
+                    android:textColor="@color/textSecondaryColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_activity_title" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/et_activity_areas"
+                    style="@style/EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:background="@drawable/bg_rounded_white_view"
+                    android:completionThreshold="1"
+                    android:drawablePadding="@dimen/margin_8dp"
+                    android:elevation="@dimen/edit_text_elevation"
+                    android:hint="@string/activity_area_hint"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapWords"
+                    android:popupBackground="@drawable/bg_spinner"
+                    android:text="@={viewModel.rawZone}"
+                    app:drawableEndCompat="@drawable/ic_search"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_activity_description" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_addresses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:layout_marginBottom="@dimen/margin_16dp"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_activity_areas"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_address" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_employee_assignment"
+                style="@style/TextView.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/employee_assignment"
+                android:textColor="@color/textSecondaryColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_activity" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Button.Black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:onClick="@{() -> viewModel.onInvite()}"
+                android:text="@string/employee_create_account"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_employee_assignment"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintWidth_percent=".8" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

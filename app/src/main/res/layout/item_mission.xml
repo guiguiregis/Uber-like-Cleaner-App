@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".MissionItemBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.shared.useCases.Mission" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/et_bg"
+        style="@style/EditTextBg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="@dimen/margin_20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:isRecurrent="@{viewModel.isRecurrent}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:serviceTypeIconLarge="@{viewModel.serviceType}"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_date_title"
+                style="@style/TextView.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:text="@string/date"
+                android:textSize="@dimen/textsize_12sp"
+                app:layout_constraintStart_toEndOf="@id/iv_home"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                style="@style/TextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_marginEnd="@dimen/margin_16dp"
+                android:layout_marginBottom="@dimen/margin_8dp"
+                android:textSize="@dimen/textsize_14sp"
+                app:layout_constraintEnd_toStartOf="@id/tv_price"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@id/iv_home"
+                app:layout_constraintTop_toBottomOf="@id/tv_date_title"
+                app:missionDate="@{viewModel.date}"
+                tools:text="13 May at 10:00" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                style="@style/TextView.Price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toEndOf="@id/tv_date"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_max="150dp"
+                tools:text="100 $" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="tv_date,tv_price" />
+
+            <TextView
+                android:id="@+id/tv_details_title"
+                style="@style/TextView.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:text="@string/details"
+                android:textSize="@dimen/textsize_12sp"
+                app:layout_constraintBottom_toTopOf="@id/tv_details"
+                app:layout_constraintStart_toEndOf="@id/iv_home"
+                app:layout_constraintTop_toBottomOf="@id/barrier_date" />
+
+            <TextView
+                android:id="@+id/tv_details"
+                style="@style/TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_4dp"
+                android:text="@{viewModel.detailsFormatted}"
+                android:textSize="@dimen/textsize_14sp"
+                app:layout_constraintStart_toEndOf="@id/iv_home"
+                app:layout_constraintTop_toBottomOf="@id/tv_details_title"
+                tools:text="Chez John Doe - 2h00" />
+
+            <TextView
+                android:id="@+id/tv_details_assigned_to"
+                style="@style/TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:text="@{String.format(@string/assigned_to_name, viewModel.assignedTo)}"
+                android:textSize="@dimen/textsize_14sp"
+                app:layout_constraintStart_toEndOf="@id/iv_home"
+                app:layout_constraintTop_toBottomOf="@id/tv_details"
+                app:visibility="@{viewModel.assigned}"
+                tools:text="Assigne a Marine B." />
+
+            <TextView
+                android:id="@+id/tv_waiting_for_assignment"
+                style="@style/TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:text="@string/waiting_for_assignment"
+                android:textColor="@color/textErrorColor"
+                android:textSize="@dimen/textsize_14sp"
+                app:layout_constraintStart_toEndOf="@id/iv_home"
+                app:layout_constraintTop_toBottomOf="@id/tv_details_assigned_to"
+                app:visibility="@{viewModel.isOnAssignment}"
+                tools:text="Attente d’affectation" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

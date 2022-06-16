@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".RegistrationBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.auth.registration.RegistrationViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        tools:context="com.wolfpackdigital.kliner.partner.core.auth.registration.RegistrationFragment">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_40dp"
+            android:onClick="@{() -> viewModel.goToPreviousPage()}"
+            android:padding="8dp"
+            android:src="@drawable/ic_arrow_left"
+            app:layout_constraintBottom_toBottomOf="@id/tv_login"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_login"
+            app:visibility="@{viewModel.currentPage != 0}"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_login"
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24dp"
+            android:fontFamily="@font/rubik_light"
+            android:text="@string/join_kliner"
+            android:textSize="@dimen/textsize_20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_page_number"
+            style="@style/TextView.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_40dp"
+            android:text="@{viewModel.currentPageString}"
+            android:textAlignment="textEnd"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/textsize_24sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_login"
+            tools:text="1/4" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="iv_back,tv_login,tv_page_number" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_registration"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barrier_top" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

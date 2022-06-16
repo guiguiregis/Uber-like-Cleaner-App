@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ItemAddressBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.shared.useCases.AddressItem" />
+    </data>
+
+    <TextView
+        style="@style/TextView.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/margin_12dp"
+        android:gravity="center|start"
+        android:onClick="@{() -> viewModel.onDelete()}"
+        android:paddingTop="@dimen/margin_8dp"
+        android:paddingBottom="@dimen/margin_8dp"
+        android:text="@{viewModel.streetLine}"
+        android:textColor="@color/textColor"
+        app:drawableEndCompat="@drawable/ic_delete_small"
+        app:drawableStartCompat="@drawable/ic_location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Paris" />
+</layout>

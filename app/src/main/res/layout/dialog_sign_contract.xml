@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".DialogSignContractBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.auth.dialogs.contract.SignContractViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_sign_contract"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/bg_round_top_corners"
+        android:padding="@dimen/margin_20dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toTopOf="@id/cb_accept_tc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        style="@style/TextView.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/margin_16dp"
+                        android:fontFamily="@font/rubik_bold"
+                        android:text="@string/sign_contract"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/textsize_24sp"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_close"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/iv_close" />
+
+                    <ImageView
+                        android:id="@+id/iv_close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{() -> viewModel.close()}"
+                        android:src="@drawable/ic_dialog_close"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_view_contract"
+                        style="@style/Button.Accent.Round"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_8dp"
+                        android:layout_marginTop="@dimen/margin_40dp"
+                        android:layout_marginEnd="@dimen/margin_8dp"
+                        android:onClick="@{() -> viewModel.onViewContract()}"
+                        android:text="@string/view_contract"
+                        app:drawableTopCompat="@drawable/sign_contract"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cb_accept_tc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/checkbox_blue"
+            android:checked="@={viewModel.termsConditionsAccepted}"
+            android:text="@string/accept_terms_conditions"
+            android:theme="@style/Checkbox.Text"
+            app:layout_constraintBottom_toTopOf="@id/btn_sign_contract"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_sign_contract"
+            style="@style/Button.Accent.Round"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8dp"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:enabled="@{viewModel.termsConditionsAccepted}"
+            android:onClick="@{() -> viewModel.onSignContract()}"
+            android:text="@string/sign_the_contract"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:enabled="true" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

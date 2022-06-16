@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".BaseCheckboxBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.shared.useCases.GeneralOption" />
+    </data>
+
+    <com.google.android.material.checkbox.MaterialCheckBox xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:button="@drawable/checkbox_orange"
+        android:checked="@{viewModel.checked}"
+        android:enabled="@{viewModel.enabled}"
+        android:gravity="center|start"
+        android:onClick="@{() -> viewModel.onClickOption()}"
+        android:padding="@dimen/margin_16dp"
+        android:text="@{viewModel.name}"
+        android:textColor="@color/text_checkbox"
+        tools:checked="true"
+        tools:enabled="false"
+        tools:text="Menage a domicile" />
+</layout>

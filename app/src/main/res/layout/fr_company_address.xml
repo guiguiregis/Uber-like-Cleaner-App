@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".CompanyAddressBinding">
+
+        <import type="android.text.InputType" />
+
+        <import type="android.view.inputmethod.EditorInfo" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.main.more.profile.company.address.CompanyAddressViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:padding="@dimen/margin_20dp">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.back()}"
+            android:src="@drawable/ic_dialog_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_add_account_title"
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/rubik_light"
+            android:text="@string/add_company_address_title"
+            android:textSize="@dimen/textsize_20sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_close" />
+
+        <AutoCompleteTextView
+            android:id="@+id/et_search_address"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24dp"
+            android:background="@drawable/bg_rounded_white_view"
+            android:completionThreshold="1"
+            android:drawablePadding="@dimen/margin_20dp"
+            android:elevation="@dimen/edit_text_elevation"
+            android:hint="@string/enter_company_address"
+            android:imeOptions="actionDone"
+            android:inputType="textCapSentences"
+            android:popupBackground="@drawable/bg_spinner"
+            android:text="@={viewModel.companyAddress}"
+            app:drawableStartCompat="@drawable/ic_address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_add_account_title" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_next"
+            style="@style/Button.Black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_6dp"
+            android:enabled="@{viewModel.addressMediator}"
+            android:onClick="@{() -> viewModel.onAddAddressClicked()}"
+            android:text="@string/validate"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_search_address"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintWidth_percent=".7" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

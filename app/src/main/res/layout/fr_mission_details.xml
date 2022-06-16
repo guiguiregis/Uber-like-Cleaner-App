@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".MissionDetailsBinding">
+
+        <import type="android.text.format.DateUtils" />
+
+        <import type="com.wolfpackdigital.kliner.partner.R" />
+
+        <import type="com.wolfpackdigital.kliner.partner.core.main.planning.missiondetails.MissionDetailsViewModel.MissionStartStatus" />
+
+        <import type="com.wolfpackdigital.kliner.partner.shared.useCases.MissionStatus" />
+
+        <import type="com.wolfpackdigital.kliner.partner.shared.useCases.ActivityInfoType" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.main.planning.missiondetails.MissionDetailsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        app:backgroundRes="@{viewModel.gradientRes ?? R.drawable.gradient_orange_white}"
+        tools:background="@drawable/gradient_orange_white">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/cl_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/margin_28dp">
+
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_28dp"
+                    android:layout_marginTop="@dimen/margin_28dp"
+                    android:onClick="@{() -> viewModel.back()}"
+                    android:padding="@dimen/margin_8dp"
+                    android:src="@drawable/ic_arrow_left"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@android:color/white"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/tv_mission"
+                    style="@style/TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/textsize_20sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_back"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_back"
+                    app:textRes="@{viewModel.titleRes ?? R.string.mission}"
+                    tools:text="@string/mission" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    style="@style/TextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_28dp"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginEnd="@dimen/margin_28dp"
+                    android:fontFamily="@font/rubik_bold"
+                    android:text="@{viewModel.mission.dateForMissionDetails}"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_mission"
+                    tools:text="Lundi 4 juin, 10:00 pm" />
+
+                <com.wolfpackdigital.kliner.partner.shared.customs.RoundedElevatedConstraintLayout
+                    android:id="@+id/cl_round"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:background="@android:color/white"
+                    android:elevation="@dimen/shadow_elevation"
+                    app:klCornerRadius="@{-1f}"
+                    app:layout_constraintBottom_toTopOf="@id/cv_bg"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/cv_bg"
+                    app:layout_constraintWidth_percent=".16"
+                    app:layout_goneMarginTop="@dimen/margin_40dp">
+
+                    <ImageView
+                        android:id="@+id/iv_mission_type"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:scaleType="center"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:serviceTypeIcon="@{viewModel.mission.serviceType}"
+                        tools:ignore="ContentDescription" />
+                </com.wolfpackdigital.kliner.partner.shared.customs.RoundedElevatedConstraintLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_bg"
+                    style="@style/CardViewBg"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_date">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingBottom="@dimen/margin_12dp">
+
+                        <TextView
+                            android:id="@+id/tv_price"
+                            style="@style/TextView.Price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.mission.price}"
+                            app:hidden="@{viewModel.isEmployeeAccount}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:marginTop="@{!viewModel.isEmployeeAccount ? @dimen/margin_40dp : @dimen/margin_20dp}"
+                            tools:text="100 $" />
+
+                        <TextView
+                            android:id="@+id/tv_cleaning_type"
+                            style="@style/TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_16dp"
+                            android:fontFamily="@font/rubik_medium"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_price"
+                            app:serviceType="@{viewModel.mission.serviceType ?? null}"
+                            app:workType="@{viewModel.mission.workType ?? null}"
+                            tools:text="Menage &amp; Repassage" />
+
+                        <TextView
+                            android:id="@+id/tv_duration"
+                            style="@style/TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_8dp"
+                            android:paddingBottom="@dimen/margin_16dp"
+                            android:text="@{@string/duration_formatted(viewModel.mission.durationFormatted)}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_cleaning_type"
+                            tools:text="Duration: 2h00" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_assigned"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clipToPadding="false"
+                            android:onClick="@{() -> viewModel.onChangeCleaner()}"
+                            android:paddingBottom="@dimen/margin_16dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_duration"
+                            app:visibility="@{viewModel.isEmployerAccount}">
+
+                            <View
+                                android:id="@+id/delimiter_duration"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/delimiter_height"
+                                android:background="@color/delimiter"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_assigned"
+                                style="@style/TextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_28dp"
+                                android:layout_marginTop="@dimen/margin_8dp"
+                                android:text="@{viewModel.mission.cleaner != null ? @string/assigned_to : @string/awaiting_assignment}"
+                                android:textColor="@{viewModel.mission.cleaner != null ? @color/textSecondaryColor : @color/textErrorColor}"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/delimiter_duration"
+                                tools:text="@string/assigned_to" />
+
+                            <ImageView
+                                android:id="@+id/iv_profile"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_marginStart="@dimen/margin_28dp"
+                                android:layout_marginTop="@dimen/margin_8dp"
+                                android:elevation="@dimen/shadow_elevation"
+                                android:src="@drawable/ic_profile"
+                                app:layout_constraintDimensionRatio="1:1"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tv_assigned"
+                                app:layout_constraintWidth_percent=".11"
+                                app:loadCircleImage="@{viewModel.mission.cleaner.photoUrl}"
+                                app:placeholderDrawable="@{@drawable/ic_profile}"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:id="@+id/tv_employee_name"
+                                style="@style/TextView"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_20dp"
+                                android:layout_marginEnd="@dimen/margin_8dp"
+                                android:text="@{viewModel.mission.cleaner != null ? viewModel.mission.cleaner.fullName : @string/add_household_help}"
+                                android:textColor="@{viewModel.mission.cleaner != null ? @color/textColor : @color/colorAccent}"
+                                app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
+                                app:layout_constraintEnd_toStartOf="@+id/tv_rating"
+                                app:layout_constraintStart_toEndOf="@id/iv_profile"
+                                app:layout_constraintTop_toTopOf="@id/iv_profile"
+                                tools:text="Michael KoolersKoolersKoolersKoolers" />
+
+                            <TextView
+                                android:id="@+id/tv_rating"
+                                style="@style/TextView.Rating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/margin_8dp"
+                                android:fontFamily="@font/rubik_medium"
+                                android:gravity="center_vertical"
+                                android:text="@{viewModel.mission.cleaner.rating.toString()}"
+                                android:textSize="@dimen/textsize_12sp"
+                                app:layout_constraintBottom_toBottomOf="@id/tv_employee_name"
+                                app:layout_constraintEnd_toStartOf="@+id/iv_open_details"
+                                app:layout_constraintTop_toTopOf="@id/tv_employee_name"
+                                app:visibility="@{false}"
+                                tools:text="4.5" />
+
+                            <ImageView
+                                android:id="@+id/iv_open_details"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/margin_28dp"
+                                android:src="@{viewModel.mission.cleaner == null ? @drawable/btn_add_small : viewModel.isCleanerEditable() ? @drawable/ic_edit : @drawable/ic_edit_disabled}"
+                                app:hidden="@{!viewModel.isEmployerAccount}"
+                                app:layout_constraintBottom_toBottomOf="@id/tv_rating"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@id/tv_rating"
+                                tools:ignore="ContentDescription" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:id="@+id/delimiter_assigned"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/delimiter_height"
+                            android:background="@color/delimiter"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/cl_assigned" />
+
+                        <TextView
+                            style="@style/TextView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_28dp"
+                            android:layout_marginTop="@dimen/margin_12dp"
+                            android:layout_marginEnd="@dimen/margin_28dp"
+                            android:drawablePadding="@dimen/margin_12dp"
+                            android:fontFamily="@font/rubik_medium"
+                            android:onClick="@{()->viewModel.onClientInstructions()}"
+                            android:paddingTop="@dimen/margin_8dp"
+                            android:paddingBottom="@dimen/margin_8dp"
+                            android:text="@{viewModel.isClientInstructions ? @string/view_client_instructions : @string/no_client_instructions}"
+                            android:textColor="@{viewModel.isClientInstructions ? @color/colorAccent : @color/textColor}"
+                            android:textSize="@dimen/textsize_14sp"
+                            app:drawableEndCompat="@{viewModel.isClientInstructions ? @drawable/ic_orange_right_arrow : null}"
+                            app:drawableStartCompat="@{viewModel.isClientInstructions ? @drawable/ic_instructions : null}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/delimiter_assigned" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/tv_direction"
+                    style="@style/TextView.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="@{viewModel.actionButtonsEnabled ? 1f : .5f}"
+                    android:drawablePadding="@dimen/margin_12dp"
+                    android:enabled="@{viewModel.actionButtonsEnabled ?? false}"
+                    android:onClick="@{() -> viewModel.openMaps()}"
+                    android:text="@string/get_direction"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/textsize_12sp"
+                    app:drawableTopCompat="@drawable/ic_directions"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_employee_photo"
+                    app:layout_constraintEnd_toStartOf="@id/iv_employee_photo"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_employee_photo" />
+
+                <ImageView
+                    android:id="@+id/iv_employee_photo"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:elevation="@dimen/shadow_elevation"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cv_bg"
+                    app:layout_constraintWidth_percent=".25"
+                    app:loadCircleImage="@{viewModel.mission.customer.photoUrl}"
+                    app:placeholderDrawable="@{@drawable/ic_profile}"
+                    tools:ignore="ContentDescription"
+                    tools:src="@drawable/ic_profile" />
+
+                <TextView
+                    android:id="@+id/tv_call"
+                    style="@style/TextView.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="@{viewModel.actionButtonsEnabled ? 1f : .5f}"
+                    android:drawablePadding="@dimen/margin_12dp"
+                    android:enabled="@{viewModel.actionButtonsEnabled ?? false}"
+                    android:onClick="@{() -> viewModel.onCallClient()}"
+                    android:text="@string/call_client"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/textsize_12sp"
+                    app:drawableTopCompat="@drawable/ic_call"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_employee_photo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_employee_photo"
+                    app:layout_constraintTop_toTopOf="@id/iv_employee_photo" />
+
+                <TextView
+                    android:id="@+id/tv_your_client"
+                    style="@style/TextView.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:fontFamily="@font/rubik_light"
+                    android:text="@string/your_client"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_employee_photo" />
+
+                <TextView
+                    android:id="@+id/tv_client_name"
+                    style="@style/TextView.Large"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:gravity="center"
+                    android:text="@{viewModel.mission.customer.firstName + ` ` + viewModel.mission.customer.lastName}"
+                    android:textSize="@dimen/textsize_20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_your_client"
+                    tools:text="Virgitte Macron" />
+
+                <TextView
+                    android:id="@+id/tv_address_description"
+                    style="@style/TextView.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:fontFamily="@font/rubik_light"
+                    android:text="@string/address"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_client_name" />
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    style="@style/TextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:gravity="center"
+                    android:text="@{viewModel.mission.address.streetLineOne}"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_address_description"
+                    tools:text="Avenue Street No.214" />
+
+                <com.wolfpackdigital.kliner.partner.shared.customs.RoundedElevatedConstraintLayout
+                    android:id="@+id/cl_started"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:background="@android:color/white"
+                    android:elevation="@dimen/shadow_elevation"
+                    android:padding="@dimen/margin_12dp"
+                    app:klCornerRadius="@{@dimen/btn_corner_radius}"
+                    app:layout_constraintBottom_toBottomOf="@id/cl_time_left"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toStartOf="@id/cl_time_left"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_address"
+                    app:visibility="@{viewModel.missionInProgress ?? false}">
+
+                    <TextView
+                        android:id="@+id/tv_started"
+                        style="@style/TextView.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/margin_2dp"
+                        android:text="@string/started"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/textColor"
+                        app:autoSizeMaxTextSize="@dimen/textsize_14sp"
+                        app:autoSizeMinTextSize="@dimen/textsize_12sp"
+                        app:autoSizeStepGranularity="1sp"
+                        app:autoSizeTextType="uniform"
+                        app:drawableTopCompat="@drawable/ic_mission_play"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        style="@style/TextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik_medium"
+                        android:lines="1"
+                        android:text="@{viewModel.missionStartHour.toString()}"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/textsize_20sp"
+                        app:autoSizeMaxTextSize="@dimen/textsize_20sp"
+                        app:autoSizeMinTextSize="@dimen/textsize_12sp"
+                        app:autoSizeStepGranularity="1sp"
+                        app:autoSizeTextType="uniform"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_started"
+                        tools:text="18:16" />
+
+                </com.wolfpackdigital.kliner.partner.shared.customs.RoundedElevatedConstraintLayout>
+
+                <com.wolfpackdigital.kliner.partner.shared.customs.RoundedElevatedConstraintLayout
+                    android:id="@+id/cl_time_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:background="@android:color/white"
+                    android:elevation="@dimen/shadow_elevation"
+                    android:padding="@dimen/margin_12dp"
+                    app:klCornerRadius="@{@dimen/btn_corner_radius}"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/cl_started"
+                    app:layout_constraintTop_toBottomOf="@id/tv_address"
+                    app:visibility="@{viewModel.missionInProgress ?? false}">
+
+                    <TextView
+                        android:id="@+id/tv_time_left"
+                        style="@style/TextView.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/margin_2dp"
+                        android:lines="1"
+                        android:text="@string/time_left"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/textColor"
+                        app:autoSizeMaxTextSize="@dimen/textsize_14sp"
+                        app:autoSizeMinTextSize="@dimen/textsize_12sp"
+                        app:autoSizeStepGranularity="1sp"
+                        app:autoSizeTextType="uniform"
+                        app:drawableTopCompat="@drawable/ic_mission_time"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        style="@style/TextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik_medium"
+                        android:lines="1"
+                        android:text="@{viewModel.minutesLeftForMissionFormatted}"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/textsize_20sp"
+                        app:autoSizeMaxTextSize="@dimen/textsize_20sp"
+                        app:autoSizeMinTextSize="@dimen/textsize_12sp"
+                        app:autoSizeStepGranularity="1sp"
+                        app:autoSizeTextType="uniform"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_time_left"
+                        tools:text="1h20m30s" />
+
+                </com.wolfpackdigital.kliner.partner.shared.customs.RoundedElevatedConstraintLayout>
+
+                <View
+                    android:id="@+id/delimiter_revenues"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/delimiter_height"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginTop="@dimen/margin_32dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:background="@color/delimiter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_address" />
+
+                <TextView
+                    android:id="@+id/tv_revenues_description"
+                    style="@style/TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_12dp"
+                    android:text="@string/revenues"
+                    app:layout_constraintStart_toStartOf="@id/tv_direction"
+                    app:layout_constraintTop_toBottomOf="@id/delimiter_revenues" />
+
+                <TextView
+                    android:id="@+id/tv_revenues"
+                    style="@style/TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.mission.price}"
+                    android:textColor="@color/colorAccent"
+                    app:layout_constraintStart_toStartOf="@id/tv_revenues_description"
+                    app:layout_constraintTop_toBottomOf="@id/tv_revenues_description"
+                    tools:ignore="HardcodedText"
+                    tools:text="120€" />
+
+                <TextView
+                    android:id="@+id/tv_revenues_download"
+                    style="@style/TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.onDownloadRevenueInvoice()}"
+                    android:text="@string/download"
+                    android:textColor="@color/colorBlue"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_revenues"
+                    app:layout_constraintEnd_toEndOf="@id/tv_call"
+                    app:layout_constraintTop_toTopOf="@id/tv_revenues_description" />
+
+                <View
+                    android:id="@+id/delimiter_charges"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/delimiter_height"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginTop="@dimen/margin_12dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:background="@color/delimiter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_revenues" />
+
+                <TextView
+                    android:id="@+id/tv_charges_description"
+                    style="@style/TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_12dp"
+                    android:text="@string/kliner_charges"
+                    app:layout_constraintStart_toStartOf="@id/tv_revenues"
+                    app:layout_constraintTop_toBottomOf="@id/delimiter_charges" />
+
+                <TextView
+                    android:id="@+id/tv_charges"
+                    style="@style/TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.mission.klinerCharges}"
+                    android:textColor="@color/colorAccent"
+                    app:layout_constraintStart_toStartOf="@id/tv_charges_description"
+                    app:layout_constraintTop_toBottomOf="@id/tv_charges_description"
+                    tools:ignore="HardcodedText"
+                    tools:text="5€" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:onClick="@{() -> viewModel.onOpenCharges()}"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_charges"
+                    app:layout_constraintEnd_toEndOf="@id/tv_charges_description"
+                    app:layout_constraintStart_toStartOf="@id/tv_charges_description"
+                    app:layout_constraintTop_toTopOf="@id/tv_charges_description" />
+
+                <androidx.constraintlayout.widget.Group
+                    visibility="@{viewModel.invoicesVisible ?? true}"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:constraint_referenced_ids="delimiter_revenues,tv_revenues_description,tv_revenues,tv_revenues_download,delimiter_charges,tv_charges_description,tv_charges" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_round_top_corners"
+            android:elevation="@dimen/shadow_elevation"
+            android:padding="@dimen/margin_20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:visibility="@{viewModel.bottomPartVisible ?? true}">
+
+            <TextView
+                android:id="@+id/tv_report"
+                style="@style/TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/margin_16dp"
+                android:fontFamily="@font/rubik_bold"
+                android:text="@string/report"
+                android:textAlignment="center"
+                android:visibility="gone"
+                app:drawableTopCompat="@drawable/ic_report"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_start"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_start"
+                style="@style/TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="@{viewModel.startButtonEnabledMediator ? 1f : .5f}"
+                android:drawablePadding="@dimen/margin_12dp"
+                android:fontFamily="@font/rubik_bold"
+                android:onClick="@{() -> viewModel.onStartButtonClick()}"
+                android:text="@{viewModel.missionInProgress ? @string/finish :@string/start}"
+                android:textAlignment="center"
+                android:textColor="@{viewModel.missionInProgress ? @color/colorGreen : @color/colorAccent}"
+                app:drawableTopCompat="@{viewModel.missionInProgress ? @drawable/ic_complete_mission : @drawable/ic_play}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_cancel"
+                app:layout_constraintStart_toEndOf="@id/tv_report"
+                tools:drawableTopCompat="@drawable/ic_play"
+                tools:text="@string/start"
+                tools:textColor="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                style="@style/TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="@{viewModel.cancelButtonEnabled ? 1f : .5f}"
+                android:drawablePadding="@dimen/margin_16dp"
+                android:enabled="@{viewModel.cancelButtonEnabled ?? false}"
+                android:fontFamily="@font/rubik_bold"
+                android:onClick="@{() -> viewModel.onShowCancelMissionDialog()}"
+                android:text="@string/cancel"
+                android:textAlignment="center"
+                app:drawableTopCompat="@drawable/ic_cancel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_start" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

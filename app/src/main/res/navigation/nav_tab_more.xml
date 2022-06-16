@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_tab_more"
+    app:startDestination="@id/moreFragment">
+
+    <fragment
+        android:id="@+id/moreFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.more.MoreFragment"
+        android:label="MoreFragment"
+        tools:layout="@layout/fr_more">
+        <action
+            android:id="@+id/action_moreFragment_to_profileDetailsFragment"
+            app:destination="@id/nav_profile_details" />
+        <action
+            android:id="@+id/action_moreFragment_to_activityFragment"
+            app:destination="@id/activityFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_showEmployeesFragment"
+            app:destination="@id/showEmployeesFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_unassignedMissionsFragment"
+            app:destination="@id/unassignedMissionsFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_enableNotificationsFragment"
+            app:destination="@id/enableNotificationsFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_enableGeolocationFragment"
+            app:destination="@id/enableGeolocationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEmployeeFragmentFromDashboard"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.employee.add.AddEmployeeFragment"
+        android:label="AddEmployeeFragment"
+        tools:layout="@layout/fr_add_employee" />
+    <fragment
+        android:id="@+id/showEmployeesFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.employee.display.ShowEmployeesFragment"
+        android:label="ShowEmployeesFragment"
+        tools:layout="@layout/fr_show_employees">
+        <action
+            android:id="@+id/action_showEmployeesFragment_to_addEmployeeFragment"
+            app:destination="@id/addEmployeeFragmentFromDashboard" />
+        <action
+            android:id="@+id/action_showEmployeesFragment_to_employeeDetailsFragment"
+            app:destination="@id/employeeDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/activityFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.more.activity.ActivityFragment"
+        android:label="ActivityFragment"
+        tools:layout="@layout/fr_activity" />
+    <fragment
+        android:id="@+id/unassignedMissionsFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.more.unassignedmissions.UnassignedMissionsFragment"
+        android:label="UnassignedMissionsFragment"
+        tools:layout="@layout/fr_unassigned_missions">
+        <action
+            android:id="@+id/action_unassignedMissionsFragment_to_nav_mission_details"
+            app:destination="@id/nav_mission_details">
+            <argument
+                android:name="missionID"
+                app:argType="integer" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/enableNotificationsFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.confirmations.notifications.EnableNotificationsFragment"
+        android:label="EnableNotificationsFragment"
+        tools:layout="@layout/fr_enable_notifications" />
+    <fragment
+        android:id="@+id/enableGeolocationFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.confirmations.geolocation.EnableGeolocationFragment"
+        android:label="EnableGeolocationFragment"
+        tools:layout="@layout/fr_enable_geolocation" />
+    <include app:graph="@navigation/nav_mission_details" />
+    <include app:graph="@navigation/nav_profile_details" />
+    <dialog
+        android:id="@+id/employeeDetailsFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.dialogs.EmployeeDetailsDialog"
+        android:label="EmployeeDetailsDialog"
+        tools:layout="@layout/dialog_employee_details">
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </dialog>
+</navigation>

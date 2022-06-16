@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".DialogSelectCountryBinding">
+
+        <import type="android.text.InputType" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.auth.dialogs.country.SelectCountryViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/bg_round_top_corners"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TextView.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_28dp"
+            android:layout_marginTop="@dimen/margin_20dp"
+            android:layout_marginEnd="@dimen/margin_28dp"
+            android:fontFamily="@font/rubik_bold"
+            android:text="@string/country_region"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@id/iv_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_close" />
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20dp"
+            android:layout_marginEnd="@dimen/margin_20dp"
+            android:onClick="@{() -> viewModel.close()}"
+            android:src="@drawable/ic_dialog_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_20dp"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/margin_20dp"
+            app:inputType="@{InputType.TYPE_TEXT_FLAG_CAP_SENTENCES}"
+            app:klDrawableStart="@{@drawable/ic_address}"
+            app:klEditTextHint="@{@string/find_a_country}"
+            app:klText="@={viewModel.searchQuery}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <TextView
+            android:id="@+id/tv_current_location"
+            style="@style/TextView.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_28dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:layout_marginEnd="@dimen/margin_28dp"
+            android:text="@string/current_location"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_search"
+            app:visibility="@{viewModel.selectedItem != null}" />
+
+        <include
+            android:id="@+id/item_selected_country"
+            layout="@layout/item_country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_28dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:layout_marginEnd="@dimen/margin_28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_current_location"
+            app:viewModel="@{viewModel.selectedItem}"
+            app:visibility="@{viewModel.selectedItem != null}" />
+
+        <TextView
+            android:id="@+id/tv_countries"
+            style="@style/TextView.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_28dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:layout_marginEnd="@dimen/margin_28dp"
+            android:text="@string/countries"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_selected_country" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_countries"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/margin_28dp"
+            android:paddingEnd="@dimen/margin_28dp"
+            android:paddingBottom="@dimen/margin_20dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_countries"
+            app:layout_constraintVertical_bias="0"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_country" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".OnboardingEmployeeBinding">
+
+        <import type="android.view.inputmethod.EditorInfo" />
+
+        <import type="android.text.InputType" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.auth.onboarding.employee.OnboardingEmployeeViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_28dp"
+            tools:context="com.wolfpackdigital.kliner.partner.core.auth.onboarding.employee">
+
+            <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo_full"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/TextView.Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_24dp"
+                android:gravity="center"
+                android:text="@{String.format(@string/welcome_format, viewModel.profile.firstName)}"
+                android:textSize="@dimen/textsize_24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_logo"
+                tools:text="Bienvenue, Martin" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                style="@style/TextView.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@{String.format(@string/invitation_format, viewModel.profile.invitedBy.firstName, viewModel.profile.cleaningCompany.name)}"
+                android:textColor="@color/textSecondaryColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                tools:text="@string/add_employee_invite" />
+
+            <ImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/margin_40dp"
+                android:elevation="@dimen/shadow_elevation"
+                android:onClick="@{() -> viewModel.pickImage()}"
+                android:src="@drawable/ic_profile"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_description"
+                app:layout_constraintWidth_percent=".3"
+                app:loadCircleImage="@{viewModel.profileImageUrl}"
+                app:placeholderDrawable="@{@drawable/ic_profile}"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="@dimen/shadow_elevation"
+                android:onClick="@{() -> viewModel.pickImage()}"
+                android:src="@drawable/btn_add_small"
+                app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+                app:layout_constraintEnd_toEndOf="@id/iv_profile"
+                app:layout_constraintStart_toStartOf="@id/iv_profile"
+                app:layout_constraintTop_toBottomOf="@id/iv_profile"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_add_photo"
+                style="@style/TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_24dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{() -> viewModel.pickImage()}"
+                android:text="@string/add_photo"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_profile" />
+
+            <TextView
+                android:id="@+id/tv_add_photo_details"
+                style="@style/TextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:text="@string/add_employee_update_photo"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_photo"
+                app:layout_constraintVertical_bias=".2"
+                app:layout_constraintWidth_percent=".90" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_24dp"
+                app:imeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+                app:inputType="@{InputType.TYPE_CLASS_PHONE}"
+                app:klDrawableEnd="@{@drawable/ic_edit_disabled}"
+                app:klEditTextHint="@{@string/phone_number}"
+                app:klFocusable="@{false}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_photo_details"
+                app:text="@{viewModel.profile.partnerAttributes.phoneNumber}" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imeOptions="@{EditorInfo.IME_ACTION_DONE}"
+                app:inputType="@{InputType.TYPE_TEXT_FLAG_CAP_WORDS}"
+                app:klDrawableEnd="@{@drawable/ic_edit_disabled}"
+                app:klEditTextHint="@{@string/first_name}"
+                app:klFocusable="@{false}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_phone_number"
+                app:text="@{viewModel.profile.firstName}" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imeOptions="@{EditorInfo.IME_ACTION_DONE}"
+                app:inputType="@{InputType.TYPE_TEXT_FLAG_CAP_WORDS}"
+                app:klDrawableEnd="@{@drawable/ic_edit_disabled}"
+                app:klEditTextHint="@{@string/first_name}"
+                app:klFocusable="@{false}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_first_name"
+                app:text="@{viewModel.profile.lastName}" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+                app:inputType="@{InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS}"
+                app:klDrawableEnd="@{@drawable/ic_edit_disabled}"
+                app:klEditTextHint="@{@string/email}"
+                app:klFocusable="@{false}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_last_name"
+                app:text="@{viewModel.profile.partnerAttributes.email}" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                app:inputType="@{InputType.TYPE_TEXT_FLAG_CAP_WORDS}"
+                app:klDrawableEnd="@{@drawable/ic_edit_disabled}"
+                app:klFocusable="@{false}"
+                app:klString="@{viewModel.address}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_email" />
+
+            <TextView
+                android:id="@+id/tv_types_of_work"
+                style="@style/TextView.Small"
+                textColor="@color/textColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:fontFamily="@font/rubik_light"
+                android:text="@string/type_of_work"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_address"
+                app:visibility="@{viewModel.typesOfWork != null}" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_types_of_work"
+                style="@style/EditTextBg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_types_of_work"
+                app:visibility="@{viewModel.typesOfWork != null}">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_types_of_work"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_types_of_service"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/base_checkbox" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Button.Black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:enabled="@{viewModel.profileImageUri != null }"
+                android:onClick="@{() -> viewModel.onNext()}"
+                android:text="@string/onboarding_btn_start"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_types_of_work"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintWidth_percent=".7" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

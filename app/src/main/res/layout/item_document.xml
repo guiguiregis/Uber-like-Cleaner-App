@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".DocumentItem">
+
+        <variable
+            name="documentUrl"
+            type="String" />
+
+        <variable
+            name="description"
+            type="String" />
+
+        <variable
+            name="imageLogo"
+            type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="documentUpdatedAt"
+            type="String" />
+
+        <variable
+            name="isPartnershipContract"
+            type="Boolean" />
+
+        <variable
+            name="onDownloadClick"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="onUploadClick"
+            type="android.view.View.OnClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="@dimen/margin_24dp"
+        android:paddingTop="@dimen/margin_8dp"
+        android:paddingBottom="@dimen/margin_8dp"
+        tools:ignore="RtlSymmetry">
+
+        <ImageView
+            android:id="@+id/iv_document"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@{imageLogo}"
+            app:layout_constraintBottom_toBottomOf="@id/tv_description_document"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_title_document"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_insurance" />
+
+        <TextView
+            android:id="@+id/tv_title_document"
+            style="@style/TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_48dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:layout_marginBottom="@dimen/margin_4dp"
+            android:text="@{title}"
+            android:textAlignment="textStart"
+            android:textColor="@color/bgBlack"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toTopOf="@id/tv_description_document"
+            app:layout_constraintEnd_toStartOf="@id/ic_add_document"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Attestation NOVA" />
+
+        <TextView
+            android:id="@+id/tv_description_document"
+            style="@style/TextView.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_48dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:drawablePadding="@dimen/margin_8dp"
+            android:fontFamily="@font/rubik_regular"
+            android:onClick="@{documentUrl == null ? null : onDownloadClick}"
+            android:paddingEnd="@dimen/margin_4dp"
+            android:paddingBottom="@dimen/margin_4dp"
+            android:textAlignment="textStart"
+            android:textColor="@{documentUrl == null ? @color/textSecondaryColor : @color/colorBlue}"
+            android:textSize="@dimen/textsize_12sp"
+            app:description="@{description}"
+            app:drawableEndCompat="@{documentUrl == null ? null : @drawable/ic_download}"
+            app:isPartnershipContract="@{isPartnershipContract}"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ic_add_document"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_document"
+            app:updatedAt="@{documentUpdatedAt}"
+            tools:ignore="RtlSymmetry"
+            tools:text="Moins 1$ par heure de menage si pas fourni d’ici 34 jours" />
+
+        <ImageView
+            android:id="@+id/ic_add_document"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{onUploadClick}"
+            android:paddingStart="@dimen/margin_8dp"
+            android:paddingTop="@dimen/margin_8dp"
+            android:paddingEnd="@dimen/margin_24dp"
+            android:paddingBottom="@dimen/margin_8dp"
+            android:src="@{documentUrl == null ? @drawable/btn_add_small : @drawable/ic_edit}"
+            app:hidden="@{isPartnershipContract}"
+            app:layout_constraintBottom_toBottomOf="@id/tv_description_document"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_title_document"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/btn_add_small" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

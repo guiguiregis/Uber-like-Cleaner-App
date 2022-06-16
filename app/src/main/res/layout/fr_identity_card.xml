@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".IdentityCardBinding">
+
+        <import type="com.wolfpackdigital.kliner.partner.shared.useCases.PhotoTypes" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.auth.registration.idcard.IdentityCardViewModel" />
+
+        <variable
+            name="dialogViewModel"
+            type="com.wolfpackdigital.kliner.partner.core.auth.dialogs.country.SelectCountryViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:padding="@dimen/margin_28dp"
+            tools:context="com.wolfpackdigital.kliner.partner.core.auth.registration.user.CleanerProfileFragment">
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/TextView.Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/id_card"
+                android:textSize="@dimen/textsize_24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                style="@style/TextView.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/id_card_description"
+                android:textColor="@color/textSecondaryColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_country"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:klClick="@{() -> viewModel.openCountryPicker()}"
+                app:klDrawableEnd="@{@drawable/ic_down}"
+                app:klEditTextHint="@{@string/country_hint}"
+                app:klError="@{viewModel.errorCountry}"
+                app:klFocusable="@{false}"
+                app:klString="@{dialogViewModel.selectedItemString}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+            <TextView
+                android:id="@+id/tv_citizens"
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_24dp"
+                android:text="@string/eu_citizens"
+                android:textColor="@color/bgBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_country" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.IdCardView
+                android:id="@+id/view_id_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_marginEnd="@dimen/margin_16dp"
+                android:clickable="@{viewModel.idCardEnabled}"
+                android:clipToPadding="false"
+                android:onClick="@{() -> viewModel.changeIdCardFrontSide()}"
+                app:idEnabled="@{viewModel.idCardEnabled}"
+                app:idImage="@{@drawable/ic_identity_card_front}"
+                app:idImageDisabled="@{@drawable/ic_identity_card_front_disabled}"
+                app:idImageUri="@{viewModel.idCardFrontSideUri}"
+                app:idTextRes="@{@string/add_id_card_front}"
+                app:layout_constraintEnd_toStartOf="@id/view_id_card_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_citizens" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.IdCardView
+                android:id="@+id/view_id_card_back"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:clickable="@{viewModel.idCardEnabled}"
+                android:clipToPadding="false"
+                android:onClick="@{() -> viewModel.changeIdCardBackSide()}"
+                app:idEnabled="@{viewModel.idCardEnabled}"
+                app:idImage="@{@drawable/ic_identity_card_back}"
+                app:idImageDisabled="@{@drawable/ic_identity_card_back_disabled}"
+                app:idImageUri="@{viewModel.idCardBackSideUri}"
+                app:idTextRes="@{@string/add_id_card_back}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/view_id_card"
+                app:layout_constraintTop_toTopOf="@+id/view_id_card" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.IdCardView
+                android:id="@+id/view_passport"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:clickable="@{viewModel.passportEnabled}"
+                android:clipToPadding="false"
+                android:onClick="@{() -> viewModel.changePassport()}"
+                app:idEnabled="@{viewModel.passportEnabled}"
+                app:idImage="@{@drawable/ic_passport}"
+                app:idImageDisabled="@{@drawable/ic_passport_disabled}"
+                app:idImageUri="@{viewModel.passportUri}"
+                app:idTextRes="@{@string/add_passport}"
+                app:layout_constraintEnd_toEndOf="@id/view_id_card"
+                app:layout_constraintStart_toStartOf="@id/view_id_card"
+                app:layout_constraintTop_toBottomOf="@id/view_id_card" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="view_id_card,view_passport" />
+
+            <TextView
+                android:id="@+id/tv_foreigners"
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_24dp"
+                android:text="@string/foreigners"
+                android:textColor="@color/bgBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/barrier" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.IdCardView
+                android:id="@+id/view_residence_permit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:clickable="@{viewModel.residencePermitEnabled}"
+                android:clipToPadding="false"
+                android:onClick="@{() -> viewModel.changeResidencePermit()}"
+                app:idEnabled="@{viewModel.residencePermitEnabled}"
+                app:idImage="@{@drawable/ic_residence_permit}"
+                app:idImageDisabled="@{@drawable/ic_residence_permit_disabled}"
+                app:idImageUri="@{viewModel.residencePermitUri}"
+                app:idTextRes="@{@string/add_residence_permit}"
+                app:layout_constraintEnd_toEndOf="@id/view_passport"
+                app:layout_constraintStart_toStartOf="@id/view_passport"
+                app:layout_constraintTop_toBottomOf="@id/tv_foreigners" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Button.Black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:onClick="@{() -> viewModel.onNext()}"
+                android:text="@string/next"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_residence_permit"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintWidth_percent=".7" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

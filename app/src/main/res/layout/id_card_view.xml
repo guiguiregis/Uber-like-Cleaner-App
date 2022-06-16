@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".IdCardViewBinding" />
+
+    <com.wolfpackdigital.kliner.partner.shared.customs.RoundedElevatedConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/edit_text_elevation"
+        android:animateLayoutChanges="true"
+        android:background="@android:color/white"
+        android:elevation="@dimen/edit_text_elevation"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:padding="@dimen/margin_16dp"
+        app:klCornerRadius="@{@dimen/btn_corner_radius}"
+        tools:ignore="UnusedAttribute">
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/iv_identity"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:padding="@dimen/margin_12dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@id/tv_identity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:round="@dimen/btn_corner_radius_small"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_identity_card_front" />
+
+        <TextView
+            android:id="@+id/tv_identity"
+            style="@style/TextView.Small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_identity"
+            tools:text="@string/add_id_card_front" />
+
+    </com.wolfpackdigital.kliner.partner.shared.customs.RoundedElevatedConstraintLayout>
+</layout>

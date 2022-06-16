@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".PlanningBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.main.planning.PlanningViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.wolfpackdigital.kliner.partner.core.main.planning.PlanningFragment">
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TextView.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_40dp"
+            android:text="@string/your_planning"
+            android:textColor="@color/bgBlack"
+            android:textSize="@dimen/textsize_24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/cv_planning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            app:mcv_dateTextAppearance="@style/CalenderViewDateCustomText"
+            app:mcv_firstDayOfWeek="monday"
+            app:mcv_headerTextAppearance="@style/CalenderViewHeaderCustomText"
+            app:mcv_leftArrowMask="@drawable/calendar_back_arrow_selector"
+            app:mcv_rightArrowMask="@drawable/calendar_next_arrow_selector"
+            app:mcv_tileHeight="@dimen/margin_48dp"
+            app:mcv_titleAnimationOrientation="horizontal"
+            app:mcv_weekDayLabels="@array/custom_weekdays"
+            app:mcv_weekDayTextAppearance="@style/CalenderViewWeekCustomText" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_missions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:paddingBottom="@dimen/margin_16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_planning"
+            app:visibility="@{!viewModel.upcomingMissionsMediator.empty || !viewModel.finishedMissionsMediator.empty}">
+
+            <TextView
+                android:id="@+id/tv_upcoming_missions"
+                style="@style/TextView.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_24dp"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:fontFamily="@font/rubik_regular"
+                android:text="@string/next_mission"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_upcoming_missions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                android:paddingStart="@dimen/margin_16dp"
+                android:paddingEnd="@dimen/margin_16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_upcoming_missions"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_mission" />
+
+            <androidx.constraintlayout.widget.Group
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="tv_upcoming_missions, rv_upcoming_missions"
+                app:visibility="@{!viewModel.upcomingMissionsMediator.empty}" />
+
+            <TextView
+                android:id="@+id/tv_finished_missions"
+                style="@style/TextView.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_24dp"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:fontFamily="@font/rubik_regular"
+                android:text="@string/finished_mission"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_upcoming_missions" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_finished_missions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                android:paddingStart="@dimen/margin_16dp"
+                android:paddingEnd="@dimen/margin_16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_finished_missions"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_mission" />
+
+            <androidx.constraintlayout.widget.Group
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="tv_finished_missions, rv_finished_missions"
+                app:visibility="@{!viewModel.finishedMissionsMediator.empty}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_no_missions"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_24dp"
+            android:layout_marginEnd="@dimen/margin_24dp"
+            android:foregroundGravity="center_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_planning"
+            app:visibility="@{viewModel.upcomingMissionsMediator.empty &amp;&amp; viewModel.finishedMissionsMediator.empty}">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.35" />
+
+            <TextView
+                android:id="@+id/tv_no_services"
+                style="@style/TextView.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_16dp"
+                android:text="@string/no_services_atm"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Button.Accent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onSearchServices()}"
+                android:text="@string/search_services"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/guideline_horizontal"
+                app:layout_constraintWidth_percent=".7" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

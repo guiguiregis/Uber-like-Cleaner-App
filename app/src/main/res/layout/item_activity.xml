@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="value"
+            type="Number" />
+
+        <variable
+            name="type"
+            type="com.wolfpackdigital.kliner.partner.shared.useCases.ActivityInfoType" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_activity_info"
+        style="@style/EditTextBg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16dp"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="@dimen/margin_12dp"
+        app:layout_constraintEnd_toStartOf="@+id/cv_revenue"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_activity_since">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_activity_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:valueIcon="@{type}"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/ic_missions_done" />
+
+            <TextView
+                android:id="@+id/tv_activity_info"
+                style="@style/TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_6dp"
+                android:textColor="@color/bgBlack"
+                android:textSize="@dimen/textsize_24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_activity_info"
+                app:numberToText="@{value}"
+                app:valueType="@{type}"
+                tools:text="204" />
+
+            <TextView
+                android:id="@+id/tv_activity_info_subtitle"
+                style="@style/TextView.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2dp"
+                android:fontFamily="@font/rubik_regular"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_activity_info"
+                app:valueText="@{type}"
+                tools:text="@string/missions" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

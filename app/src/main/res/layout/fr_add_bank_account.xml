@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".AddBankAccountBinding">
+
+        <import type="android.text.InputType" />
+
+        <import type="android.view.inputmethod.EditorInfo" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.main.more.profile.account.AddBankAccountViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/margin_20dp">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.back()}"
+            android:src="@drawable/ic_dialog_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_add_account_title"
+            style="@style/TextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_40dp"
+            android:fontFamily="@font/rubik_light"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@{viewModel.bankAccountTitle}"
+            android:textSize="@dimen/textsize_20sp"
+            app:autoSizeMaxTextSize="@dimen/textsize_20sp"
+            app:autoSizeMinTextSize="@dimen/textsize_14sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toBottomOf="@id/iv_close"
+            app:layout_constraintEnd_toStartOf="@id/iv_close"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_close"
+            tools:text="@string/add_bank_account" />
+
+        <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+            android:id="@+id/et_account_holder_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_40dp"
+            app:imeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+            app:inputType="@{InputType.TYPE_TEXT_FLAG_CAP_WORDS}"
+            app:klEditTextHint="@{@string/account_holder_name}"
+            app:klError="@{viewModel.errorAccountHolderName}"
+            app:klText="@={viewModel.accountHolderName}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_add_account_title" />
+
+        <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+            android:id="@+id/et_iban"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:imeOptions="@{EditorInfo.IME_ACTION_DONE}"
+            app:inputType="@{InputType.TYPE_CLASS_TEXT}"
+            app:klAllCaps="@{true}"
+            app:klDrawableEnd="@{viewModel.ibanValidation ? @drawable/ic_checkmark_blue : @drawable/ic_checkmark_grey }"
+            app:klEditTextHint="@{@string/iban}"
+            app:klError="@{viewModel.errorIban}"
+            app:klText="@={viewModel.iban}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_account_holder_name" />
+
+        <TextView
+            android:id="@+id/tv_add_account_message"
+            style="@style/TextView.Small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_32dp"
+            android:layout_marginTop="@dimen/margin_40dp"
+            android:layout_marginEnd="@dimen/margin_32dp"
+            android:gravity="center"
+            android:text="@string/iban_info_text"
+            android:textColor="@color/textColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_iban"
+            app:useMaterialThemeColors="false" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_add_account"
+            style="@style/Button.Black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.onNext()}"
+            android:text="@string/validate"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent=".7" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

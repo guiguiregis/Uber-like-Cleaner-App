@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ProfileDetailsBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.main.more.profile.ProfileDetailsViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_20dp">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.back()}"
+                android:padding="@dimen/margin_12dp"
+                android:src="@drawable/ic_arrow_left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/iv_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onLogout()}"
+                android:src="@drawable/ic_logout"
+                app:hidden="@{viewModel.cleanerData.isEmployer()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_profile_title"
+                style="@style/TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rubik_light"
+                android:text="@string/profile"
+                android:textSize="@dimen/textsize_20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_logout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_logout" />
+
+            <TextView
+                style="@style/TextView.RatingRound"
+                android:layout_width="@dimen/profile_rating_circle_size"
+                android:layout_height="@dimen/profile_rating_circle_size"
+                android:layout_marginEnd="@dimen/margin_8dp"
+                android:padding="@dimen/margin_8dp"
+                android:text="@{viewModel.rating}"
+                app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+                app:layout_constraintEnd_toStartOf="@id/iv_profile"
+                app:layout_constraintHorizontal_bias="0.6"
+                app:layout_constraintStart_toStartOf="@id/iv_back"
+                app:layout_constraintTop_toTopOf="@id/iv_profile"
+                app:visibility="@{false}"
+                tools:ignore="ContentDescription"
+                tools:text="4.5" />
+
+            <ImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:clickable="true"
+                android:elevation="@dimen/shadow_elevation"
+                android:focusable="true"
+                android:onClick="@{() -> viewModel.pickImage()}"
+                android:src="@drawable/ic_profile"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_profile_title"
+                app:layout_constraintWidth_percent=".25"
+                app:loadCircleImage="@{viewModel.profileImageUrl}"
+                app:placeholderDrawable="@{@drawable/ic_profile}"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{() -> viewModel.pickImage()}"
+                android:src="@drawable/ic_edit"
+                app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+                app:layout_constraintStart_toEndOf="@id/iv_profile"
+                app:layout_constraintTop_toTopOf="@id/iv_profile"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_cleaner_name"
+                style="@style/TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:gravity="center"
+                android:text="@{viewModel.cleanerData.fullName}"
+                android:textSize="@dimen/textsize_18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_profile"
+                tools:text="John Doe" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_cleaner_name"
+                app:visibility="@{viewModel.companyVisible}">
+
+                <TextView
+                    android:id="@+id/tv_company_name"
+                    style="@style/TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:onClick="@{() -> viewModel.showCompanyDetails()}"
+                    android:text="@{viewModel.cleanerData.cleaningCompany.name}"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/textsize_18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Kliner Company" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.showCompanyDetails()}"
+                    android:padding="@dimen/margin_12dp"
+                    android:src="@drawable/ic_orange_right_arrow"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_company_name"
+                    app:layout_constraintStart_toEndOf="@id/tv_company_name"
+                    app:layout_constraintTop_toTopOf="@+id/tv_company_name"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/tv_company_code"
+                    style="@style/TextView.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:fontFamily="@font/rubik_light"
+                    android:text="@{viewModel.cleanerData.cleaningCompany.siren}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_company_name"
+                    tools:text="RCS 55345 4545" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_about"
+                style="@style/TextView.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:fontFamily="@font/rubik_light"
+                android:text="@string/about"
+                android:textColor="@color/textColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_company" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_prefix"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/margin_16dp"
+                app:klEditTextHint="@{@string/prefix_hint}"
+                app:klFocusable="@{false}"
+                app:klString="@{viewModel.countryCode}"
+                app:klTextColor="@{@color/colorGrayOpacity80}"
+                app:klWidthMatchParent="@{true}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_about" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_phone"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:klDrawableEnd="@{@drawable/ic_edit_disabled}"
+                app:klFocusable="@{false}"
+                app:klString="@{viewModel.phoneNumber}"
+                app:klTextColor="@{@color/colorGrayOpacity80}"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="@id/et_prefix"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/et_prefix"
+                app:layout_constraintTop_toTopOf="@id/et_prefix" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:onClick="@{() -> viewModel.onEditPhoneNumber()}"
+                app:layout_constraintBottom_toBottomOf="@id/et_phone"
+                app:layout_constraintEnd_toEndOf="@id/et_phone"
+                app:layout_constraintStart_toStartOf="@id/et_prefix"
+                app:layout_constraintTop_toTopOf="@id/et_prefix" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:klDrawableEnd="@{viewModel.cleanerData.isEmployee() ? null : @drawable/ic_edit_disabled}"
+                app:klFocusable="@{false}"
+                app:klString="@{viewModel.firstName}"
+                app:klTextColor="@{@color/colorGrayOpacity80}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_prefix" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:klDrawableEnd="@{viewModel.cleanerData.isEmployee() ? null : @drawable/ic_edit_disabled}"
+                app:klFocusable="@{false}"
+                app:klString="@{viewModel.lastName}"
+                app:klTextColor="@{@color/colorGrayOpacity80}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_first_name" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:klDrawableEnd="@{viewModel.cleanerData.isEmployee() ? null : @drawable/ic_edit_disabled}"
+                app:klFocusable="@{false}"
+                app:klString="@{viewModel.email}"
+                app:klTextColor="@{@color/colorGrayOpacity80}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_last_name" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:klDrawableEnd="@{viewModel.cleanerData.isEmployee() ? null : @drawable/ic_edit_disabled}"
+                app:klFocusable="@{false}"
+                app:klString="@{viewModel.gender}"
+                app:klTextColor="@{@color/colorGrayOpacity80}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_email"
+                app:visibility="@{viewModel.cleanerData.isEmployer() == false}" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_birth_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                app:klDrawableEnd="@{viewModel.cleanerData.isEmployee() ? null : @drawable/ic_edit_disabled}"
+                app:klFocusable="@{false}"
+                app:klString="@{viewModel.birthDate}"
+                app:klTextColor="@{@color/colorGrayOpacity80}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_gender"
+                app:visibility="@{viewModel.cleanerData.isIndependent()}" />
+
+            <TextView
+                android:id="@+id/tv_types_of_service"
+                style="@style/TextView.Small"
+                textColor="@color/textColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:fontFamily="@font/rubik_light"
+                android:text="@string/specialties"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_birth_date"
+                app:visibility="@{viewModel.cleanerData.isEmployee() == false}" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_types_of_service"
+                style="@style/EditTextBg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_types_of_service"
+                app:visibility="@{viewModel.cleanerData.isEmployee() == false}">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_types_of_service"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_types_of_service"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/base_checkbox" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/tv_types_of_work"
+                style="@style/TextView.Small"
+                textColor="@color/textColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:fontFamily="@font/rubik_light"
+                android:text="@string/competences"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_types_of_service"
+                app:visibility="@{viewModel.typesOfWork != null &amp; viewModel.cleanerData.isEmployer() == false}" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_types_of_work"
+                style="@style/EditTextBg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_types_of_work"
+                app:visibility="@{viewModel.typesOfWork != null &amp; viewModel.cleanerData.isEmployer() == false}">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_types_of_work"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_types_of_service"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/base_checkbox" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/tv_activity_zones"
+                style="@style/TextView.Small"
+                textColor="@color/textColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:fontFamily="@font/rubik_light"
+                android:text="@string/activity_area"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_types_of_work"
+                app:visibility="@{viewModel.cleanerData.isEmployer() == false}" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                app:klDrawableEnd="@{@drawable/ic_edit}"
+                app:klDrawableEndClick="@{() -> viewModel.onEditActivityArea()}"
+                app:klFocusable="@{false}"
+                app:klString="@{viewModel.address}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_activity_zones"
+                app:visibility="@{viewModel.cleanerData.isEmployer() == false}" />
+
+            <TextView
+                android:id="@+id/tv_bank_account"
+                style="@style/TextView.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:fontFamily="@font/rubik_light"
+                android:text="@string/bank_account"
+                android:textColor="@color/textColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_address" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_bank_account"
+                style="@style/EditTextBg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="@dimen/margin_16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_bank_account"
+                app:visibility="@{viewModel.documentsVisible}">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:visibility="@{viewModel.bankAccount != null}"
+                    tools:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_bank_account_name"
+                        style="@style/TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.bankAccount.accountHolderName}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        style="@style/TextView.Small"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_marginEnd="@dimen/margin_40dp"
+                        app:ibanFormat="@{viewModel.bankAccount.iban}"
+                        app:layout_constraintEnd_toStartOf="@id/iv_edit_bank_account"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_bank_account_name"
+                        app:visibleCharacters="@{4}" />
+
+                    <ImageView
+                        android:id="@+id/iv_edit_bank_account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{() -> viewModel.addBankAccount()}"
+                        android:src="@drawable/ic_edit_big"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:visibility="@{viewModel.bankAccount == null}">
+
+                    <TextView
+                        style="@style/TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_16dp"
+                        android:layout_marginBottom="@dimen/margin_16dp"
+                        android:text="@string/add_bank_account"
+                        android:textColor="@color/colorBlue"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:onClick="@{() -> viewModel.addBankAccount()}"
+                        android:padding="@dimen/margin_8dp"
+                        android:src="@drawable/ic_btn_add_blue"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_documents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_bank_account"
+                app:visibility="@{viewModel.documentsVisible}">
+
+                <TextView
+                    android:id="@+id/tv_documents"
+                    style="@style/TextView.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:fontFamily="@font/rubik_light"
+                    android:text="@string/documents"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <include
+                    android:id="@+id/document_nova"
+                    layout="@layout/item_document"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    app:description="@{@plurals/nova_certificate_description_plural(viewModel.daysLeftToUploadCertificate, viewModel.daysLeftToUploadCertificate)}"
+                    app:documentUpdatedAt="@{viewModel.cleanerData.novaCertificate.uploadedAt}"
+                    app:documentUrl="@{viewModel.cleanerData.novaCertificate.url}"
+                    app:imageLogo="@{@drawable/ic_user}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_documents"
+                    app:onDownloadClick="@{() -> viewModel.onDownloadNovaCertificate()}"
+                    app:onUploadClick="@{() -> viewModel.onUploadNovaCertificate()}"
+                    app:title="@{@string/nova_certificate}" />
+
+                <include
+                    android:id="@+id/document_insurance"
+                    layout="@layout/item_document"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:description="@{@plurals/insurance_certificate_description_plural(viewModel.daysLeftToUploadCertificate, viewModel.daysLeftToUploadCertificate)}"
+                    app:documentUpdatedAt="@{viewModel.cleanerData.insuranceCertificate.uploadedAt}"
+                    app:documentUrl="@{viewModel.cleanerData.insuranceCertificate.url}"
+                    app:imageLogo="@{@drawable/ic_insurance}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/document_nova"
+                    app:onDownloadClick="@{() -> viewModel.onDownloadInsuranceCertificate()}"
+                    app:onUploadClick="@{() -> viewModel.onUploadInsuranceCertificate()}"
+                    app:title="@{@string/insurance_certificate}" />
+
+                <include
+                    android:id="@+id/partnership_contract"
+                    layout="@layout/item_document"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:description="@{@string/partnership_contract_description}"
+                    app:documentUpdatedAt="@{viewModel.cleanerData.partnershipContract.uploadedAt}"
+                    app:documentUrl="@{viewModel.cleanerData.partnershipContract.url}"
+                    app:imageLogo="@{@drawable/ic_contract}"
+                    app:isPartnershipContract="@{true}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/document_insurance"
+                    app:onDownloadClick="@{() -> viewModel.onDownloadPartnershipContract()}"
+                    app:title="@{@string/partnership_contract}"
+                    app:visibility="@{viewModel.cleanerData.partnershipContract != null}" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_data_protection"
+                style="@style/EditTextBg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:onClick="@{() -> viewModel.onOpenDataProtection()}"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="@dimen/margin_20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_documents">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_data_protection"
+                        style="@style/TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/data_protection"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        style="@style/TextView.Small"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_marginEnd="@dimen/margin_40dp"
+                        android:text="@string/data_protection_message"
+                        app:layout_constraintEnd_toStartOf="@id/iv_arrow"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_data_protection" />
+
+                    <ImageView
+                        android:id="@+id/iv_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_arrow_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_delete_account"
+                style="@style/Button.White.Bordered"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20dp"
+                android:layout_marginBottom="@dimen/margin_8dp"
+                android:onClick="@{() -> viewModel.onDeleteAccount()}"
+                android:text="@string/delete_account"
+                app:cornerRadius="@dimen/btn_corner_radius"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_data_protection"
+                app:layout_constraintWidth_percent=".9"
+                app:visibility="@{viewModel.cleanerData.isEmployer() == false}" />
+
+            <TextView
+                android:id="@+id/tv_sme_logout"
+                style="@style/TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20dp"
+                android:layout_marginBottom="@dimen/margin_8dp"
+                android:onClick="@{() -> viewModel.onLogout()}"
+                android:text="@string/logout"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/textsize_18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_data_protection"
+                app:visibility="@{viewModel.cleanerData.isEmployer()}"
+                tools:text="Kliner Company" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_bottom_buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="btn_delete_account,tv_sme_logout" />
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_20dp"
+                android:text="@{viewModel.appVersionField}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/barrier_bottom_buttons"
+                tools:text="v1.0" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</layout>

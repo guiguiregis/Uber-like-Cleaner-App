@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".WelcomeBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.auth.welcome.WelcomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bgBlack"
+        android:clipToPadding="false"
+        tools:context="com.wolfpackdigital.kliner.partner.core.auth.welcome.WelcomeFragment">
+
+        <ImageView
+            android:id="@+id/iv_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_welcome"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent=".62"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.003"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_28dp"
+            android:layout_marginTop="@dimen/margin_80dp"
+            android:layout_marginEnd="@dimen/margin_28dp"
+            android:src="@drawable/logo_full_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/iv_round"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_welcome_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent=".45"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TextView.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_28dp"
+            android:layout_marginTop="@dimen/margin_40dp"
+            android:layout_marginEnd="@dimen/margin_28dp"
+            android:layout_marginBottom="@dimen/margin_4dp"
+            android:text="@string/welcome"
+            android:textAlignment="center"
+            android:textSize="@dimen/textsize_24sp"
+            app:layout_constraintEnd_toEndOf="@id/iv_round"
+            app:layout_constraintStart_toStartOf="@id/iv_round"
+            app:layout_constraintTop_toTopOf="@id/iv_round"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tv_subtitle"
+            style="@style/TextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4dp"
+            android:text="@string/welcome_description"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@id/iv_round"
+            app:layout_constraintStart_toStartOf="@id/iv_round"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_percent=".85" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login"
+            style="@style/Button.Welcome"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/margin_28dp"
+            android:layout_marginTop="@dimen/margin_40dp"
+            android:layout_marginEnd="@dimen/margin_28dp"
+            android:onClick="@{() -> viewModel.openPhoneConfirmation()}"
+            android:text="@string/welcome_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_subtitle" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

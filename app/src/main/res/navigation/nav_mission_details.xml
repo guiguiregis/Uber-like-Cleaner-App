@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_mission_details"
+    app:startDestination="@id/missionDetailsFragment">
+    <fragment
+        android:id="@+id/missionDetailsFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.planning.missiondetails.MissionDetailsFragment"
+        android:label="MissionDetailsFragment"
+        tools:layout="@layout/fr_mission_details">
+        <argument
+            android:name="missionID"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_missionDetailsFragment_to_clientInstructionsFragment"
+            app:destination="@id/clientInstructionsFragment" />
+        <action
+            android:id="@+id/action_missionDetailsFragment_to_assignEmployeeBottomSheetDialog"
+            app:destination="@id/assignEmployeeBottomSheetDialog" />
+        <action
+            android:id="@+id/action_missionDetailsFragment_to_activityFragment"
+            app:destination="@id/activityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/clientInstructionsFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.planning.missiondetails.clientinstructions.ClientInstructionsFragment"
+        android:label="ClientInstructionsFragment"
+        tools:layout="@layout/fr_client_instructions">
+        <argument
+            android:name="instructions"
+            app:argType="string[]" />
+    </fragment>
+    <dialog
+        android:id="@+id/assignEmployeeBottomSheetDialog"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.offers.assign.AssignEmployeeBottomSheetDialog"
+        android:label="AssignEmployeeBottomSheetDialog"
+        tools:layout="@layout/dialog_assign_employee">
+        <argument
+            android:name="missionID"
+            app:argType="integer" />
+        <argument
+            android:name="isRecurrentMission"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="isRecurrenceChange"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_assignEmployeeBottomSheetDialog_to_addEmployeeFragment"
+            app:destination="@id/addEmployeeFragment" />
+        <action
+            android:id="@+id/action_assignEmployeeBottomSheetDialog_to_changeMissionRecurrenceBottomSheetDialog"
+            app:destination="@id/changeMissionRecurrenceBottomSheetDialog"
+            app:popUpTo="@id/missionDetailsFragment"
+            app:popUpToInclusive="true" />
+    </dialog>
+    <fragment
+        android:id="@+id/activityFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.more.activity.ActivityFragment"
+        android:label="ActivityFragment"
+        tools:layout="@layout/fr_activity" />
+    <fragment
+        android:id="@+id/addEmployeeFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.employee.add.AddEmployeeFragment"
+        android:label="AddEmployeeFragment"
+        tools:layout="@layout/fr_add_employee" />
+    <dialog
+        android:id="@+id/changeMissionRecurrenceBottomSheetDialog"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.planning.missiondetails.dialogs.ChangeMissionRecurrenceBottomSheetDialog"
+        android:label="ChangeMissionRecurrenceBottomSheetDialog"
+        tools:layout="@layout/dialog_change_mission_recurrence">
+        <argument
+            android:name="missionID"
+            app:argType="integer" />
+        <argument
+            android:name="cleanerID"
+            app:argType="integer" />
+    </dialog>
+</navigation>

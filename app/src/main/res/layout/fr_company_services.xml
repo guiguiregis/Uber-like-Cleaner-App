@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".CompanyServicesBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.auth.registration.services.CompanyServicesViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:padding="@dimen/margin_28dp"
+            tools:context="com.wolfpackdigital.kliner.partner.core.auth.registration.services.CompanyServicesFragment">
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/TextView.Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/your_services"
+                android:textSize="@dimen/textsize_24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                style="@style/TextView.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/your_services_description"
+                android:textColor="@color/textSecondaryColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_types_of_service"
+                style="@style/EditTextBg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_description"
+                app:visibility="@{viewModel.typesOfService != null}">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_types_of_service"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_types_of_service"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/base_checkbox" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/tv_types_of_work"
+                style="@style/TextView.Small"
+                textColor="@color/textColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:fontFamily="@font/rubik_light"
+                android:text="@string/type_of_work"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_types_of_service"
+                app:visibility="@{viewModel.typesOfWork != null}" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_types_of_work"
+                style="@style/EditTextBg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_types_of_work"
+                app:visibility="@{viewModel.typesOfWork != null}">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_types_of_work"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_types_of_service"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/base_checkbox" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/tv_cesu"
+                style="@style/TextView.Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:text="@string/accept_cesu"
+                android:textSize="@dimen/textsize_16sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_types_of_work" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_cesu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_cesu"
+                tools:itemCount="3"
+                tools:listitem="@layout/base_checkbox" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_activity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:clipToPadding="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_cesu"
+                app:visibility="@{viewModel.typesOfWork != null}">
+
+                <TextView
+                    android:id="@+id/tv_activity_title"
+                    style="@style/TextView.Title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_area"
+                    android:textSize="@dimen/textsize_16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_activity_description"
+                    style="@style/TextView.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@string/activity_area_description_soloprenur"
+                    android:textColor="@color/textSecondaryColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_activity_title" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/et_search_address"
+                    style="@style/EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:background="@drawable/bg_rounded_white_view"
+                    android:completionThreshold="1"
+                    android:drawablePadding="@dimen/margin_8dp"
+                    android:elevation="@dimen/edit_text_elevation"
+                    android:hint="@string/activity_area_hint"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapWords"
+                    android:popupBackground="@drawable/bg_spinner"
+                    android:text="@={viewModel.rawZone}"
+                    app:drawableEndCompat="@drawable/ic_search"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_activity_description" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_addresses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:layout_marginBottom="@dimen/margin_16dp"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_search_address"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_address" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_next"
+                style="@style/Button.Black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onNext()}"
+                android:text="@string/next"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_activity"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintWidth_percent=".7" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

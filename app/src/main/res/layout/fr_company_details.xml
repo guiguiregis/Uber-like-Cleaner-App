@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".CompanyDetailsBinding">
+
+        <import type="android.text.InputType" />
+
+        <import type="android.view.inputmethod.EditorInfo" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.auth.registration.details.CompanyDetailsViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:padding="@dimen/margin_28dp"
+            tools:context="com.wolfpackdigital.kliner.partner.core.auth.registration.details.CompanyDetailsFragment">
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/TextView.Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/company_info"
+                android:textSize="@dimen/textsize_24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                style="@style/TextView.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/company_info_description"
+                android:textColor="@color/textSecondaryColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_company_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_24dp"
+                app:imeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+                app:inputType="@{InputType.TYPE_TEXT_FLAG_CAP_WORDS}"
+                app:klEditTextHint="@{@string/company_name}"
+                app:klEnabled="@{viewModel.canEditCompany}"
+                app:klError="@{viewModel.errorCompanyName}"
+                app:klTextCapitalize="@={viewModel.companyName}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+            <AutoCompleteTextView
+                android:id="@+id/et_search_address"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_8dp"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_marginEnd="@dimen/margin_8dp"
+                android:background="@drawable/bg_rounded_white_view"
+                android:completionThreshold="1"
+                android:drawablePadding="@dimen/margin_8dp"
+                android:elevation="@dimen/edit_text_elevation"
+                android:enabled="@{viewModel.canEditCompany}"
+                android:hint="@string/company_address"
+                android:imeOptions="actionNext"
+                android:inputType="@{InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS}"
+                android:popupBackground="@drawable/bg_spinner"
+                android:text="@={viewModel.companyAddress}"
+                app:drawableEndCompat="@drawable/ic_search_state"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_company_name" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_company_siren"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                app:imeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+                app:inputType="@{InputType.TYPE_CLASS_NUMBER}"
+                app:klDrawableEnd="@{@drawable/ic_info}"
+                app:klDrawableEndClick="@{() -> viewModel.onSirenInfo()}"
+                app:klEditTextHint="@{@string/siren}"
+                app:klEnabled="@{viewModel.canEditCompany}"
+                app:klError="@{viewModel.errorCompanySiren}"
+                app:klText="@={viewModel.companySiren}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_search_address" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Button.Black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onNext()}"
+                android:text="@string/next"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_company_siren"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintWidth_percent=".7" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

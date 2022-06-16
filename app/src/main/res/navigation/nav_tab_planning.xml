@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_tab_planning"
+    app:startDestination="@id/planningFragment">
+
+    <fragment
+        android:id="@+id/planningFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.planning.PlanningFragment"
+        android:label="PlanningFragment"
+        tools:layout="@layout/fr_planning">
+        <action
+            android:id="@+id/action_planningFragment_to_missionDetailsFragment"
+            app:destination="@id/nav_mission_details">
+            <argument
+                android:name="missionID"
+                app:argType="integer" />
+        </action>
+    </fragment>
+    <include app:graph="@navigation/nav_mission_details" />
+</navigation>

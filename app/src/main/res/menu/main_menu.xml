@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_tab_dashboard"
+        android:enabled="true"
+        android:icon="@drawable/ic_dashboard"
+        android:title="@string/dashboard_tab" />
+
+    <item
+        android:id="@+id/nav_tab_planning"
+        android:enabled="true"
+        android:icon="@drawable/ic_planning"
+        android:title="@string/planning" />
+
+    <item
+        android:id="@+id/nav_tab_offers"
+        android:enabled="true"
+        android:icon="@drawable/ic_offers"
+        android:title="@string/offers" />
+
+    <item
+        android:id="@+id/nav_tab_more"
+        android:enabled="true"
+        android:icon="@drawable/ic_more"
+        android:title="@string/more" />
+</menu>

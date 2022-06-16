@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#222222</color>
+    <color name="colorAccent">#FF7F0A</color>
+
+    <color name="textColor">#2F2F36</color>
+    <color name="textColorDisabled">#66000000</color>
+    <color name="bgBlack">#222222</color>
+    <color name="bgBlackSecondary">#121212</color>
+    <color name="textSecondaryColor">#6B6B76</color>
+    <color name="colorOpacityGray">#206B6B76</color>
+    <color name="colorGrayOpacity80">#806B6B76</color>
+    <color name="textRating">#F1BF00</color>
+    <color name="textErrorColor">#E92C2C</color>
+    <color name="redGradientColor">#FF5454</color>
+    <color name="textColorCanceled">#EB2626</color>
+    <color name="textColorApproved">#59C972</color>
+    <color name="textColorPending">#FEC400</color>
+    <color name="colorGreen">#59C972</color>
+    <color name="colorBlue">#2F82EF</color>
+    <color name="tipsBackground">#F3F3F3</color>
+    <color name="colorLightGray">#F2F2F2</color>
+    <color name="delimiter">#34D2D2D2</color>
+    <color name="delimiterLight">#D2D2D2</color>
+    <color name="colorToggleBgDisabled">#F3F3F3</color>
+    <color name="colorToggleTextDisabled">#C9C9C9</color>
+    <color name="rank_gold">#F1BF00</color>
+    <color name="rank_silver">#BCBCBC</color>
+    <color name="rank_bronze">#E68530</color>
+</resources>

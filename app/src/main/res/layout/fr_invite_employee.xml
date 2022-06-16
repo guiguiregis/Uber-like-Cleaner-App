@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".InviteEmployeeBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.main.employee.invite.InviteEmployeeViewModel" />
+    </data>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_28dp"
+            tools:context="com.wolfpackdigital.kliner.partner.core.main.employee.invite.InviteEmployeeFragment">
+
+            <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_24dp"
+                android:src="@drawable/logo_full"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/iv_invite_employee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/invite_employee"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_marginBottom="@dimen/margin_16dp"
+                app:layout_constraintBottom_toTopOf="@id/tv_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_logo"
+                app:layout_constraintVertical_chainStyle="spread"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/TextView.Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/invite_employees_title"
+                android:textSize="@dimen/textsize_24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias=".6" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                style="@style/TextView.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/invite_employees_description"
+                android:textColor="@color/textSecondaryColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_add_employee"
+                style="@style/Button.Black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onNext()}"
+                android:text="@string/add_employee"
+                android:layout_marginTop="@dimen/margin_40dp"
+                app:layout_constraintBottom_toTopOf="@id/btn_later"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_description"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintWidth_percent=".9" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_later"
+                style="@style/Button.White"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/later"
+                android:onClick="@{() -> viewModel.onLater()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintWidth_percent=".9" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

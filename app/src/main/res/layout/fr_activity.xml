@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ActivityBinding">
+
+        <import type="com.wolfpackdigital.kliner.partner.shared.useCases.ActivityInfoType" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.main.more.activity.ActivityViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/margin_28dp"
+        tools:context="com.wolfpackdigital.kliner.partner.core.main.more.activity.ActivityFragment">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.back()}"
+            android:padding="@dimen/margin_8dp"
+            android:src="@drawable/ic_arrow_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_activity"
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/rubik_light"
+            android:text="@string/more_section_activity"
+            android:textSize="@dimen/textsize_20sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_back" />
+
+        <TextView
+            android:id="@+id/tv_activity_since"
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_28dp"
+            android:paddingStart="@dimen/margin_8dp"
+            android:paddingEnd="@dimen/margin_8dp"
+            android:text="@string/activity_since"
+            android:textSize="@dimen/textsize_14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_activity" />
+
+        <include
+            android:id="@+id/cv_missions_done"
+            layout="@layout/item_activity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            app:layout_constraintEnd_toStartOf="@+id/cv_revenue"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_activity_since"
+            app:type="@{ActivityInfoType.Missions}"
+            app:value="@{viewModel.missionsCompleted}" />
+
+        <include
+            android:id="@+id/cv_revenue"
+            layout="@layout/item_activity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/cv_missions_done"
+            app:layout_constraintTop_toBottomOf="@+id/tv_activity_since"
+            app:type="@{viewModel.isEmployee ? ActivityInfoType.Hours : ActivityInfoType.Revenue}"
+            app:value="@{viewModel.isEmployee ? viewModel.totalHours : viewModel.totalRevenue}" />
+
+        <TextView
+            android:id="@+id/tv_transactions"
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:paddingStart="@dimen/margin_8dp"
+            android:paddingEnd="@dimen/margin_8dp"
+            android:text="@string/transactions"
+            android:textSize="@dimen/textsize_14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_missions_done" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_transactions"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_transactions"
+            tools:itemCount="6"
+            tools:listitem="@layout/item_transaction" />
+
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tv_transactions,rv_transactions"
+            app:visibility="@{!viewModel.isEmployee}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

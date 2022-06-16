@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_profile_details"
+    app:startDestination="@id/profileDetailsFragment">
+    <fragment
+        android:id="@+id/companyAddressFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.more.profile.company.address.CompanyAddressFragment"
+        android:label="CompanyAddressFragment"
+        tools:layout="@layout/fr_company_address" />
+    <fragment
+        android:id="@+id/codeConfirmationFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.auth.confirmation.CodeConfirmationFragment"
+        android:label="CodeConfirmationFragment"
+        tools:layout="@layout/fr_code_confirmation">
+        <argument
+            android:name="phoneNumber"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="isEditMode"
+            android:defaultValue="false"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/addBankAccountFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.more.profile.account.AddBankAccountFragment"
+        android:label="AddBankAccountFragment"
+        tools:layout="@layout/fr_add_bank_account">
+        <argument
+            android:name="bankAccount"
+            app:argType="com.wolfpackdigital.kliner.partner.shared.useCases.BankAccount"
+            app:nullable="true" />
+    </fragment>
+    <activity
+        android:id="@+id/authActivity2"
+        android:name="com.wolfpackdigital.kliner.partner.core.auth.AuthActivity"
+        android:label="AuthActivity"
+        tools:layout="@layout/activity_auth" />
+    <fragment
+        android:id="@+id/profileDetailsFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.more.profile.ProfileDetailsFragment"
+        android:label="ProfileDetailsFragment"
+        tools:layout="@layout/fr_profile_details">
+        <action
+            android:id="@+id/action_profileDetailsFragment_to_companyProfileFragment"
+            app:destination="@id/companyProfileFragment" />
+        <action
+            android:id="@+id/action_profileDetailsFragment_to_addBankAccountFragment"
+            app:destination="@id/addBankAccountFragment" />
+        <action
+            android:id="@+id/action_profileDetailsFragment_to_authActivity2"
+            app:destination="@id/authActivity2" />
+        <action
+            android:id="@+id/action_profileDetailsFragment_to_phoneConfirmationFragment"
+            app:destination="@id/phoneConfirmationFragment" />
+        <action
+            android:id="@+id/action_profileDetailsFragment_to_activityAreaFragment"
+            app:destination="@id/activityAreaFragment" />
+        <action
+            android:id="@+id/action_profileDetailsFragment_to_gdprFragment"
+            app:destination="@id/gdprFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/companyProfileFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.more.profile.company.CompanyProfileFragment"
+        android:label="CompanyProfileFragment"
+        tools:layout="@layout/fr_company_profile">
+        <action
+            android:id="@+id/action_companyProfileFragment_to_authActivity2"
+            app:destination="@id/authActivity2" />
+        <action
+            android:id="@+id/action_companyProfileFragment_to_companyAddressFragment"
+            app:destination="@id/companyAddressFragment" />
+        <action
+            android:id="@+id/action_companyProfileFragment_to_companyNameFragment"
+            app:destination="@id/companyNameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/phoneConfirmationFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.auth.phone.PhoneConfirmationFragment"
+        android:label="PhoneConfirmationFragment"
+        tools:layout="@layout/fr_phone_confirmation">
+        <argument
+            android:name="prefix"
+            android:defaultValue="+33"
+            app:argType="string" />
+        <argument
+            android:name="phoneNumber"
+            android:defaultValue=''
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_phoneConfirmationFragment_to_codeConfirmationFragment"
+            app:destination="@id/codeConfirmationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/activityAreaFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.more.profile.activityarea.ActivityAreaFragment"
+        android:label="ActivityAreaFragment"
+        tools:layout="@layout/fr_activity_area" />
+    <fragment
+        android:id="@+id/companyNameFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.more.profile.company.name.CompanyNameFragment"
+        android:label="CompanyNameFragment"
+        tools:layout="@layout/fr_company_name" />
+    <fragment
+        android:id="@+id/gdprFragment"
+        android:name="com.wolfpackdigital.kliner.partner.core.main.more.profile.gdpr.GdprFragment"
+        android:label="GdprFragment"
+        tools:layout="@layout/fr_gdpr" />
+</navigation>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".AssignEmployeeItemBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.shared.useCases.CleanerProfile" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/margin_20dp"
+        android:paddingTop="@dimen/margin_16dp"
+        android:paddingEnd="@dimen/margin_20dp"
+        android:paddingBottom="@dimen/margin_16dp">
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:elevation="@dimen/shadow_elevation_small"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_profile"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_employee_name"
+            app:layout_constraintWidth_percent=".11"
+            app:loadCircleImage="@{viewModel.photoUrl}"
+            app:placeholderDrawable="@{@drawable/ic_profile}"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_employee_name"
+            style="@style/TextView.Large"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_20dp"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:text="@{viewModel.fullName}"
+            android:textColor="@color/bgBlack"
+            android:textSize="@dimen/textsize_18sp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_rating"
+            app:layout_constraintStart_toEndOf="@id/iv_profile"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Michael Koolers" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/TextView.Small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:visibility="gone"
+            android:fontFamily="@font/rubik_light"
+            android:text="@{@string/distance_format(viewModel.id)}"
+            android:textSize="@dimen/textsize_12sp"
+            app:layout_constraintEnd_toStartOf="@id/tv_rating"
+            app:layout_constraintStart_toStartOf="@id/tv_employee_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_employee_name"
+            tools:text="Habite a 3km du client" />
+
+        <TextView
+            android:id="@+id/tv_rating"
+            style="@style/TextView.Rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/rubik_medium"
+            android:gravity="center_vertical"
+            android:text="@{viewModel.rating.toString()}"
+            android:textSize="@dimen/textsize_12sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_profile"
+            tools:text="4.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

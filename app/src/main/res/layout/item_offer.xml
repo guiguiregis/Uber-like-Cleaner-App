@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".OfferBinding">
+
+        <import type="android.view.View" />
+
+        <import type="android.view.Gravity" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.shared.useCases.Mission" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/offer_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.wolfpackdigital.kliner.partner.shared.customs.RoundedElevatedConstraintLayout
+            android:id="@+id/cl_round"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:background="@android:color/white"
+            android:elevation="@dimen/shadow_elevation"
+            app:klCornerRadius="@{-1f}"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent=".16">
+
+            <ImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:serviceTypeIcon="@{viewModel.serviceType}"
+                tools:ignore="ContentDescription" />
+        </com.wolfpackdigital.kliner.partner.shared.customs.RoundedElevatedConstraintLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/et_bg"
+            style="@style/CardViewBg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_40dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_offer_name"
+                    style="@style/TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_40dp"
+                    android:fontFamily="@font/rubik_medium"
+                    android:textSize="@dimen/textsize_20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:serviceType="@{viewModel.serviceType}"
+                    app:workType="@{viewModel.workType}"
+                    tools:text="@string/home_cleaning" />
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    style="@style/TextView.Small"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:text="@string/offer_price"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/textsize_12sp"
+                    app:layout_constraintEnd_toStartOf="@+id/delimiter_price"
+                    app:layout_constraintStart_toStartOf="@id/btn_accept"
+                    app:layout_constraintTop_toBottomOf="@id/tv_offer_name"
+                    app:layout_constraintWidth_percent="0.2" />
+
+                <TextView
+                    android:id="@+id/tv_price_value"
+                    style="@style/TextView.Orange.Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginEnd="@dimen/margin_8dp"
+                    android:text="@{viewModel.price}"
+                    app:layout_constraintStart_toStartOf="@id/tv_price"
+                    app:layout_constraintTop_toBottomOf="@id/tv_price"
+                    tools:text="$200" />
+
+                <View
+                    android:id="@+id/delimiter_price"
+                    android:layout_width="0.5dp"
+                    android:layout_height="0dp"
+                    android:background="@color/delimiterLight"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_price_value"
+                    app:layout_constraintEnd_toStartOf="@id/tv_duration"
+                    app:layout_constraintStart_toEndOf="@id/tv_price"
+                    app:layout_constraintTop_toTopOf="@id/tv_price" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group_price"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:constraint_referenced_ids="tv_price,tv_price_value,delimiter_price" />
+
+                <TextView
+                    android:id="@+id/tv_duration"
+                    style="@style/TextView.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:text="@string/offer_duration"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/textsize_12sp"
+                    app:layout_constraintEnd_toStartOf="@+id/delimiter_duration"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/delimiter_price"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_offer_name" />
+
+                <TextView
+                    android:id="@+id/tv_duration_value"
+                    style="@style/TextView.Orange.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginEnd="@dimen/margin_8dp"
+                    android:text="@{viewModel.durationFormatted}"
+                    app:layout_constraintStart_toStartOf="@id/tv_duration"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_duration"
+                    tools:text="3h" />
+
+                <View
+                    android:id="@+id/delimiter_duration"
+                    android:layout_width="0.5dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:background="@color/delimiterLight"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_duration_value"
+                    app:layout_constraintEnd_toStartOf="@id/tv_location"
+                    app:layout_constraintStart_toEndOf="@id/tv_duration"
+                    app:layout_constraintTop_toTopOf="@id/tv_duration" />
+
+                <TextView
+                    android:id="@+id/tv_location"
+                    style="@style/TextView.Small"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:text="@string/offer_place"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/textsize_12sp"
+                    app:layout_constraintEnd_toEndOf="@id/btn_accept"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/delimiter_duration"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_offer_name"
+                    app:layout_constraintWidth_percent="0.2" />
+
+
+                <TextView
+                    android:id="@+id/tv_location_value"
+                    style="@style/TextView.Orange.Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:onClick="@{() -> viewModel.onLocationClicked()}"
+                    android:text="@{viewModel.address.city}"
+                    app:layout_constraintEnd_toStartOf="@id/iv_location"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="@id/tv_location"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_location"
+                    tools:text="Paris" />
+
+                <ImageView
+                    android:id="@+id/iv_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_4dp"
+                    android:onClick="@{() -> viewModel.onLocationClicked()}"
+                    android:src="@drawable/ic_location"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_location_value"
+                    app:layout_constraintEnd_toEndOf="@id/tv_location"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@id/tv_location_value"
+                    app:layout_constraintTop_toTopOf="@id/tv_location_value"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/tv_recurrent"
+                    style="@style/TextView.Small"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:gravity="@{viewModel.isEquipmentNeeded() ? Gravity.LEFT : Gravity.CENTER}"
+                    android:text="@{viewModel.isRecurrent ? @string/recurrent : @string/punctual}"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintEnd_toStartOf="@id/tv_equipment"
+                    app:layout_constraintStart_toStartOf="@id/btn_accept"
+                    app:layout_constraintTop_toBottomOf="@id/tv_location_value" />
+
+                <TextView
+                    android:id="@+id/tv_equipment"
+                    style="@style/TextView.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/with_equipment"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintEnd_toEndOf="@id/btn_accept"
+                    app:layout_constraintTop_toTopOf="@id/tv_recurrent"
+                    app:visibility="@{viewModel.isEquipmentNeeded}" />
+
+                <TextView
+                    android:id="@+id/tv_appointment_date"
+                    style="@style/TextView.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_recurrent"
+                    tools:text="Rendez-vous:  Mardi 8 mai a 10:00" />
+
+                <TextView
+                    android:id="@+id/tv_appointment_place"
+                    style="@style/TextView.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_appointment_date"
+                    tools:text="Lieu: Saint-Tropez" />
+
+                <TextView
+                    android:id="@+id/tv_appointment_recurrence"
+                    style="@style/TextView.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:text="@string/offer_recurrence"
+                    android:textColor="@color/textColor"
+                    app:hidden="@{!viewModel.isRecurrent}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_appointment_place" />
+
+                <TextView
+                    android:id="@+id/tv_every_week"
+                    style="@style/TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:textSize="@dimen/textsize_12sp"
+                    android:textStyle="bold"
+                    app:hidden="@{!viewModel.isRecurrent}"
+                    app:layout_constraintBottom_toTopOf="@id/rv_weekdays"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_appointment_recurrence"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:offerFrequency="@{viewModel.frequency}" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_weekdays"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:layout_marginBottom="@dimen/margin_16dp"
+                    android:background="@drawable/bg_light_gray"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    app:hidden="@{!viewModel.isRecurrent}"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintBottom_toTopOf="@id/btn_accept"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_every_week"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:listitem="@layout/item_weekday" />
+
+                <Button
+                    android:id="@+id/btn_accept"
+                    style="@style/Button.Accent"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/btn_height_large"
+                    android:layout_marginBottom="@dimen/margin_4dp"
+                    android:onClick="@{()-> viewModel.onAcceptClicked()}"
+                    android:text="@string/accept"
+                    app:layout_constraintBottom_toTopOf="@id/btn_refuse"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintVertical_bias="1"
+                    app:layout_constraintWidth_percent=".85" />
+
+                <Button
+                    android:id="@+id/btn_refuse"
+                    style="@style/Button.White"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/btn_height_large"
+                    android:onClick="@{() -> viewModel.onRefuseClicked()}"
+                    android:text="@string/refuse"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:layout_constraintWidth_percent=".85" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

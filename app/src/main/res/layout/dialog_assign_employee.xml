@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".DialogAssignEmployeeBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.main.offers.assign.AssignEmployeeViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/bg_round_top_corners"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_28dp"
+            android:src="@drawable/ic_logo_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TextView.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_28dp"
+            android:layout_marginTop="@dimen/margin_12dp"
+            android:layout_marginEnd="@dimen/margin_28dp"
+            android:text="@{viewModel.cleaners.empty ? @string/no_employee_available : @string/choose_cleaner}"
+            android:textAlignment="center"
+            android:textColor="@color/bgBlack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_logo"
+            tools:text="@string/choose_cleaner" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/TextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_32dp"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/margin_32dp"
+            android:fontFamily="@font/rubik_regular"
+            android:gravity="center"
+            android:text="@{viewModel.cleaners.empty ? @string/add_employee_to_offer : @string/choose_cleaner_message}"
+            android:textColor="@color/textSecondaryColor"
+            android:textSize="@dimen/textsize_14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:text="@string/choose_cleaner_message" />
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:onClick="@{() -> viewModel.onCloseDialog()}"
+            android:src="@drawable/ic_dialog_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_employees"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20dp"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            android:paddingStart="@dimen/margin_16dp"
+            android:paddingEnd="@dimen/margin_16dp"
+            android:paddingBottom="@dimen/margin_20dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toTopOf="@id/btn_confirm_cleaner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_description"
+            app:layout_constraintVertical_bias="0"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_assign_employee" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_add_employee"
+            style="@style/Button.Accent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20dp"
+            android:layout_marginBottom="@dimen/margin_80dp"
+            android:fontFamily="@font/rubik_regular"
+            android:onClick="@{() -> viewModel.onOpenInviteEmployee()}"
+            android:text="@string/add_employees"
+            android:textSize="@dimen/textsize_16sp"
+            app:hidden="@{!viewModel.cleaners.empty}"
+            app:layout_constraintBottom_toTopOf="@+id/btn_confirm_cleaner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_description"
+            app:layout_constraintWidth_percent=".6" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_confirm_cleaner"
+            style="@style/Button.Accent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_32dp"
+            android:layout_marginEnd="@dimen/margin_32dp"
+            android:layout_marginBottom="@dimen/margin_40dp"
+            android:enabled="@{viewModel.isSelected}"
+            android:fontFamily="@font/rubik_regular"
+            android:onClick="@{() -> viewModel.onConfirmEmployee()}"
+            android:text="@{@string/confirm_cleaner}"
+            android:textSize="@dimen/textsize_16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/confirm_cleaner" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".CleanerBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.shared.useCases.CleanerProfile" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> viewModel.onSelect()}">
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="75dp"
+            android:layout_height="@dimen/dashboard_employee_icon_size"
+            android:layout_marginStart="@dimen/margin_24dp"
+            android:layout_marginEnd="@dimen/margin_24dp"
+            android:elevation="@dimen/shadow_elevation"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadCircleImage="@{viewModel.photoUrl}"
+            app:placeholderDrawable="@{@drawable/ic_profile}"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_profile" />
+
+
+        <TextView
+            android:id="@+id/tv_cleaner_name"
+            style="@style/TextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/rubik_medium"
+            android:maxLines="2"
+            android:text="@{viewModel.fullName}"
+            android:textAlignment="center"
+            android:textSize="@dimen/textsize_14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_profile"
+            app:layout_constraintWidth_percent=".9"
+            tools:text="Cleaner Name" />
+
+        <TextView
+            android:id="@+id/tv_rating"
+            style="@style/TextView.Rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:text="@{viewModel.rating.toString()}"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/tv_cleaner_name"
+            app:layout_constraintStart_toStartOf="@id/tv_cleaner_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_cleaner_name"
+            tools:text="4.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

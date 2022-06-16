@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".OnboardingPlaceholderBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.auth.onboarding.placeholder.OnboardingPlaceholderViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="@dimen/margin_28dp"
+        android:paddingEnd="@dimen/margin_28dp"
+        tools:context="com.wolfpackdigital.kliner.partner.core.auth.onboarding.placeholder.OnboardingPlaceholderFragment">
+
+        <ImageView
+            android:id="@+id/iv_onboarding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:src="@{viewModel.drawable}"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/onboarding_1" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TextView.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.title}"
+            android:textAlignment="center"
+            android:textSize="@dimen/textsize_24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".7"
+            tools:text="@string/onboard_increase_activity" />
+
+        <TextView
+            style="@style/TextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.description}"
+            android:textAlignment="center"
+            android:textColor="@color/textSecondaryColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintVertical_bias=".2"
+            app:layout_constraintWidth_percent=".85"
+            tools:text="Recevez partout en France, tous les jours &amp; gratuitement, des offres de prestations de ménage." />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

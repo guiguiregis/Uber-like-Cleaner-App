@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".StartMissionBinding">
+
+        <import type="com.wolfpackdigital.kliner.partner.core.main.planning.missiondetails.dialogs.StartMissionBottomSheetDialog.DialogType" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.main.planning.missiondetails.MissionDetailsViewModel" />
+
+        <variable
+            name="type"
+            type="com.wolfpackdigital.kliner.partner.core.main.planning.missiondetails.dialogs.StartMissionBottomSheetDialog.DialogType" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_round_top_corners"
+        android:padding="@dimen/margin_28dp">
+
+        <ImageView
+            android:id="@+id/iv_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_warning"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.onCloseStartDialog()}"
+            android:src="@drawable/ic_dialog_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TextView.Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_28dp"
+            android:layout_marginTop="@dimen/margin_24dp"
+            android:layout_marginEnd="@dimen/margin_28dp"
+            android:text="@{type == DialogType.TOO_EARLY ? @string/dialog_mission_start_too_early_title : @string/dialog_mission_start_title}"
+            android:textAlignment="center"
+            android:textSize="@dimen/textsize_24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_question"
+            tools:text="@string/dialog_mission_start_title" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/TextView.Small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_28dp"
+            android:layout_marginTop="@dimen/margin_28dp"
+            android:layout_marginEnd="@dimen/margin_28dp"
+            android:text="@{type == DialogType.TOO_EARLY ? @string/dialog_mission_start_too_early_description : @string/dialog_mission_start_description}"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_confirm"
+            style="@style/Button.Accent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20dp"
+            android:onClick="@{() -> viewModel.onStartMission(type)}"
+            android:text="@string/confirm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

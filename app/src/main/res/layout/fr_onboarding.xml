@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".OnboardingBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.auth.onboarding.OnboardingViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:paddingTop="@dimen/margin_28dp"
+        android:paddingBottom="@dimen/margin_28dp"
+        tools:context="com.wolfpackdigital.kliner.partner.core.auth.onboarding.OnboardingFragment">
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo_full"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.skipOnboarding()}"
+            android:padding="@dimen/margin_16dp"
+            android:text="@string/pass"
+            app:layout_constraintBottom_toBottomOf="@id/iv_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_logo"
+            app:layout_constraintTop_toTopOf="@id/iv_logo"
+            app:visibility="@{viewModel.skipVisible}" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            app:layout_constraintBottom_toTopOf="@id/page_indicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_logo" />
+
+        <com.zhpan.indicator.DrawableIndicator
+            android:id="@+id/page_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_40dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_continue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_continue"
+            style="@style/TextView.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            android:onClick="@{() -> viewModel.nextPage()}"
+            android:text="@{viewModel.btnContinueText}"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/textsize_24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Suite" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

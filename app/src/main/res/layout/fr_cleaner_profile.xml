@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".CleanerProfileBinding">
+
+        <import type="android.view.inputmethod.EditorInfo" />
+
+        <import type="android.text.InputType" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.kliner.partner.core.auth.registration.user.CleanerProfileViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_28dp"
+            tools:context="com.wolfpackdigital.kliner.partner.core.auth.registration.user.CleanerProfileFragment">
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/TextView.Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/tell_us_more"
+                android:textSize="@dimen/textsize_24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                style="@style/TextView.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/user_profile_complete_fields"
+                android:textColor="@color/textSecondaryColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+            <ImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:elevation="@dimen/shadow_elevation"
+                android:onClick="@{() -> viewModel.pickImage()}"
+                android:src="@drawable/ic_profile"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_description"
+                app:layout_constraintWidth_percent=".3"
+                app:loadCircleImage="@{viewModel.profileImageUrl}"
+                app:placeholderDrawable="@{@drawable/ic_profile}"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="@dimen/shadow_elevation"
+                android:src="@drawable/btn_add_small"
+                app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+                app:layout_constraintEnd_toEndOf="@id/iv_profile"
+                app:layout_constraintStart_toStartOf="@id/iv_profile"
+                app:layout_constraintTop_toBottomOf="@id/iv_profile"
+                tools:ignore="ContentDescription" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_24dp"
+                app:imeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+                app:inputType="@{InputType.TYPE_TEXT_FLAG_CAP_WORDS}"
+                app:klEditTextHint="@{@string/first_name}"
+                app:klEnabled="@{viewModel.canEditProfile}"
+                app:klError="@{viewModel.errorFirstName}"
+                app:klTextCapitalize="@={viewModel.firstName}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_profile" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+                app:inputType="@{InputType.TYPE_TEXT_FLAG_CAP_WORDS}"
+                app:klEditTextHint="@{@string/last_name}"
+                app:klEnabled="@{viewModel.canEditProfile}"
+                app:klError="@{viewModel.errorLastName}"
+                app:klTextCapitalize="@={viewModel.lastName}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_first_name" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+                app:inputType="@{InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS}"
+                app:klEditTextHint="@{@string/company_email}"
+                app:klEnabled="@{viewModel.canEditProfile}"
+                app:klError="@{viewModel.errorEmail}"
+                app:klText="@={viewModel.email}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_last_name" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseEditText
+                android:id="@+id/et_birth_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imeOptions="@{EditorInfo.IME_ACTION_DONE}"
+                app:klClick="@{() -> viewModel.openDatePicker()}"
+                app:klEditTextHint="@{@string/birth_date}"
+                app:klEnabled="@{viewModel.canEditProfile}"
+                app:klError="@{viewModel.errorBirthDate}"
+                app:klFocusable="@{false}"
+                app:klText="@={viewModel.birthDate}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_email" />
+
+            <com.wolfpackdigital.kliner.partner.shared.utils.views.BaseDropdown
+                android:id="@+id/et_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:klDropdownEnabled="@{viewModel.canEditProfile}"
+                app:klDropdownListRaw="@{viewModel.genderList}"
+                app:klDropdownSelection="@={viewModel.gender}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_birth_date" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Button.Black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onNext()}"
+                android:text="@string/next"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_dropdown"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintWidth_percent=".7" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

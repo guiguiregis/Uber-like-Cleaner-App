@@ -1,0 +1,8 @@
+<lint>
+    <issue id="InvalidPackage">
+        <ignore path="**/activation*.jar" />
+    </issue>
+    <issue id="IconLauncherShape">
+        <ignore path="**/ic_launcher.png"/>
+    </issue>
+</lint>

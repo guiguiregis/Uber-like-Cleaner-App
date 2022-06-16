@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="places_api" translatable="false">AIzaSyD6lwe3Q81skadyqtbNeyXntWqpqje2ZSg</string>
+    <string name="push_notification_channel_name" translatable="false">Notifications du Kliner Client</string>
+    <string name="default_notification_channel_desc" translatable="false">Notifications du Kliner Client</string>
+    <string name="prefix_hint" translatable="false">+33</string>
+    <string name="price_euros" translatable="false">+%s€</string>
+    <string name="price_total_euros" translatable="false">%s€</string>
+    <string name="iban_format" translatable="false">**** %s</string>
+    <string name="siren_info_website_name" translatable="false">infogreffe.fr</string>
+    <string name="siren_info_website_url" translatable="false">https://www.infogreffe.fr/</string>
+    <string name="support_url" translatable="false">https://www.kliner.com/support-centre-daide</string>
+    <string name="about_url" translatable="false">https://www.kliner.com/fr/blog/</string>
+    <string name="terms_of_service_url" translatable="false">https://www.kliner.com/mentions-legales-confidentialite/</string>
+    <string name="privacy_policy_url" translatable="false">https://www.kliner.com/mentions-legales-confidentialite/</string>
+</resources>
